@@ -10,7 +10,9 @@ import com.example.testlibrarysong.R
 import com.example.testlibrarysong.business.domain.User
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 
-class UserListAdapter : ListAdapter<User, UserListViewHolder>(UserComparator()) {
+class UserListAdapter(
+    private val clickListener: UserFragmentClickListener
+) : ListAdapter<User, UserListViewHolder>(UserComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
         return UserListViewHolder(LayoutInflater.from(parent.context)
@@ -19,6 +21,9 @@ class UserListAdapter : ListAdapter<User, UserListViewHolder>(UserComparator()) 
 
     override fun onBindViewHolder(holder: UserListViewHolder, position: Int) {
         holder.onBind(getItem(position))
+        holder.itemView.setOnClickListener {
+            clickListener.openUsersPlaylists(getItem(position))
+        }
     }
 }
 

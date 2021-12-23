@@ -10,7 +10,7 @@ import com.example.testlibrarysong.datasourse.room.entities.*
 import kotlinx.serialization.json.Json
 
 @Dao
-interface SongDao {
+interface MusicDao {
 
     @Query("SELECT * FROM users")
     suspend fun getAllUsers(): List<UserEntity>
@@ -33,9 +33,9 @@ interface SongDao {
     @Insert(onConflict = REPLACE)
     suspend fun insertPlaylistsToSongs(playlistsToSongs: List<PlaylistSongCrossReference>)
 
-//    @Transaction
-//    @Query("SELECT * FROM UserPlaylistCrossReference WHERE userId == :userId")
-//    fun getPlaylistsByUser(userId: Int): UserWithPlaylists
+    @Transaction
+    @Query("SELECT * FROM users WHERE userId == :userId")
+    suspend fun getPlaylistsByUser(userId: Int): UserWithPlaylists
 
 
 }
