@@ -1,4 +1,4 @@
-package com.example.testlibrarysong.presintation.ui.users
+package com.example.testlibrarysong.presentation.ui.users
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,7 @@ import com.example.testlibrarysong.business.domain.User
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 
 class UserListAdapter(
-    private val clickListener: UserFragmentClickListener
+    private val clickListener: UserClickListener
 ) : ListAdapter<User, UserListViewHolder>(UserComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {

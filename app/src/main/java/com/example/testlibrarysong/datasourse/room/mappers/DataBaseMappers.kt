@@ -1,8 +1,10 @@
 package com.example.testlibrarysong.datasourse.room.mappers
 
 import com.example.testlibrarysong.business.domain.PlayList
+import com.example.testlibrarysong.business.domain.Song
 import com.example.testlibrarysong.business.domain.User
 import com.example.testlibrarysong.datasourse.room.entities.PlayListEntity
+import com.example.testlibrarysong.datasourse.room.entities.SongEntity
 import com.example.testlibrarysong.datasourse.room.entities.UserEntity
 
 object DataBaseMappers {
@@ -21,6 +23,16 @@ object DataBaseMappers {
             id = entity.playlistId,
             name = entity.playlistName,
             description = entity.playlistDescription
+        )
+    }
+
+    fun mapToSong(entity: SongEntity): Song {
+        return Song(
+            id = entity.songId,
+            name = entity.songName,
+            singerName = entity.singerFirstName,
+            singerLastName = entity.singerLastName,
+            description = entity.songDescription
         )
     }
 }

@@ -1,4 +1,4 @@
-package com.example.testlibrarysong.presintation.ui
+package com.example.testlibrarysong.presentation.ui
 
 interface ClickListener {
     fun openItem(id: Int)

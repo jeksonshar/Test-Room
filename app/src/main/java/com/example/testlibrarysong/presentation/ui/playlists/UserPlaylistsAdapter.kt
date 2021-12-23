@@ -1,4 +1,4 @@
-package com.example.testlibrarysong.presintation.ui.playlists
+package com.example.testlibrarysong.presentation.ui.playlists
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,9 @@ import com.example.testlibrarysong.R
 import com.example.testlibrarysong.business.domain.PlayList
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 
-class PlaylistAdapter: ListAdapter<PlayList, PlaylistViewHolder>(PlaylistComparator()) {
+class UserPlaylistAdapter(
+    private val clickListener: PlaylistClickListener
+): ListAdapter<PlayList, PlaylistViewHolder>(PlaylistComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
         return PlaylistViewHolder(
@@ -21,6 +23,9 @@ class PlaylistAdapter: ListAdapter<PlayList, PlaylistViewHolder>(PlaylistCompara
 
     override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
         holder.onBind(getItem(position))
+        holder.itemView.setOnClickListener {
+            clickListener.openPlaylistSongs(getItem(position))
+        }
     }
 }
 

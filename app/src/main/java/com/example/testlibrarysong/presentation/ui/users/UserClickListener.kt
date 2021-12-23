@@ -1,8 +1,8 @@
-package com.example.testlibrarysong.presintation.ui.users
+package com.example.testlibrarysong.presentation.ui.users
 
 import com.example.testlibrarysong.business.domain.User
 
-interface UserFragmentClickListener {
+interface UserClickListener {
 
     fun openUsersPlaylists(user: User)
 }

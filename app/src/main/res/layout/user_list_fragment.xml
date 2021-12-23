@@ -5,13 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presintation.ui.users.UserListFragment">
+    tools:context=".presentation.ui.users.UserListFragment">
 
     <TextView
         android:id="@+id/tvUsers"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@color/cream"
         android:text="@string/users_list"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/recyclerUsers"
         app:layout_constraintEnd_toEndOf="parent"

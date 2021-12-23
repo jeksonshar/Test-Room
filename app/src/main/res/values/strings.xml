@@ -5,6 +5,7 @@
     <string name="last_name">Last name</string>
     <string name="email_description">Email / Description</string>
     <string name="song_name">Song name</string>
-    <string name="user_playlists">User\'s playlists</string>
+    <string name="user_playlists">\'s playlists</string>
+    <string name="playlist_songs">\'s songs</string>
 
 </resources>

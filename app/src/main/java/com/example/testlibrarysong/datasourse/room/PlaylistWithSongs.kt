@@ -7,7 +7,7 @@ import com.example.testlibrarysong.datasourse.room.entities.PlayListEntity
 import com.example.testlibrarysong.datasourse.room.entities.PlaylistSongCrossReference
 import com.example.testlibrarysong.datasourse.room.entities.SongEntity
 
-data class UserPlaylistWithSongs(
+data class PlaylistWithSongs(
     @Embedded val playlist: PlayListEntity,
     @Relation(
         parentColumn = "playlistId",

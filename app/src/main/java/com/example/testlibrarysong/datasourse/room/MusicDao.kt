@@ -38,5 +38,8 @@ interface MusicDao {
     @Query("SELECT * FROM users WHERE userId == :userId")
     suspend fun getPlaylistsByUser(userId: Int): UserWithPlaylists
 
+    @Transaction
+    @Query("SELECT * FROM play_lists WHERE playlistId == :playlistId")
+    suspend fun getSongsByPlaylist(playlistId: Int): PlaylistWithSongs
 
 }

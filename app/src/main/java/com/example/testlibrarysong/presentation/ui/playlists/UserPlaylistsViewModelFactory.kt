@@ -1,4 +1,4 @@
-package com.example.testlibrarysong.presintation.ui.playlists
+package com.example.testlibrarysong.presentation.ui.playlists
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

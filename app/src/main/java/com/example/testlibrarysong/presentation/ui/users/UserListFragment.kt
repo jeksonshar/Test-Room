@@ -1,4 +1,4 @@
-package com.example.testlibrarysong.presintation.ui.playlists
+package com.example.testlibrarysong.presentation.ui.users
 
 import android.content.Context
 import android.os.Bundle
@@ -11,22 +11,38 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
 import com.example.testlibrarysong.business.domain.User
-import com.example.testlibrarysong.business.usecases.GetPlaylistsUseCase
+import com.example.testlibrarysong.business.usecases.GetUsersUseCase
 import com.example.testlibrarysong.databinding.UserListFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
+import com.example.testlibrarysong.presentation.ui.playlists.UserPlaylistsFragment
 
-class UserPlaylistsFragment : Fragment() {
+class UserListFragment : Fragment() {
 
     private var _binding: UserListFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private var db: MusicDataBase? = null
+    var db: MusicDataBase? = null
 
-    private val viewModel: UserPlaylistsViewModel by viewModels {
-        UserPlaylistsViewModelFactory(GetPlaylistsUseCase(db))
+    private val viewModel: UserListViewModel by viewModels {
+        UserListViewModelFactory(
+            GetUsersUseCase(db),
+            this
+        )
     }
+
+    private var clickListener: UserClickListener? = object : UserClickListener {
+        override fun openUsersPlaylists(user: User) {
+            parentFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fragmentContainer, UserPlaylistsFragment.newInstance(user))
+                .commit()
+        }
+    }
+
     private val adapter by lazy {
-        PlaylistAdapter()
+        clickListener?.let {
+            UserListAdapter(it)
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -44,7 +60,6 @@ class UserPlaylistsFragment : Fragment() {
             val layoutManager = LinearLayoutManager(context)
             recyclerUsers.layoutManager = layoutManager
             recyclerUsers.adapter = adapter
-            tvUsers.setText(R.string.user_playlists)
         }
         return binding.root
     }
@@ -52,10 +67,8 @@ class UserPlaylistsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getPlaylists()
-
-        viewModel.playlists.observe(viewLifecycleOwner, {
-            adapter.submitList(it)
+        viewModel.users.observe(viewLifecycleOwner, {
+            adapter?.submitList(it)
         })
     }
 
@@ -64,11 +77,10 @@ class UserPlaylistsFragment : Fragment() {
         _binding = null
     }
 
-    companion object {
-
-        fun newInstance(user: User): UserPlaylistsFragment {
-            UserPlaylistsSingleton.user = user
-            return UserPlaylistsFragment()
-        }
+    override fun onDetach() {
+        super.onDetach()
+        clickListener = null
     }
+
+
 }

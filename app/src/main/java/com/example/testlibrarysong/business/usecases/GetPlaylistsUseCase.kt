@@ -13,7 +13,6 @@ class GetPlaylistsUseCase(private val dataBase: MusicDataBase?) {
             return emptyList()
         }
 
-//        val entities = dataBase.songDao().getPlaylistsByUser(userId).playlists
         val entities = dataBase.songDao().getPlaylistsByUser(userId).playlists
         val playlists = ArrayList<PlayList>()
         for (entity in entities) {
