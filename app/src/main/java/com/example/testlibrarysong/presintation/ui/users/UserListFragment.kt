@@ -30,7 +30,7 @@ class UserListFragment : Fragment() {
         )
     }
 
-    private var clickListener: UserFragmentClickListener? = object :UserFragmentClickListener {
+    private var clickListener: UserFragmentClickListener? = object : UserFragmentClickListener {
         override fun openUsersPlaylists(user: User) {
             parentFragmentManager.beginTransaction()
                 .addToBackStack(null)
@@ -66,8 +66,6 @@ class UserListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.getUsers()
 
         viewModel.users.observe(viewLifecycleOwner, {
             adapter?.submitList(it)

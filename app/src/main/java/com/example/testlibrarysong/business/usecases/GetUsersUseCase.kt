@@ -3,20 +3,25 @@ package com.example.testlibrarysong.business.usecases
 import com.example.testlibrarysong.business.domain.User
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.datasourse.room.mappers.DataBaseMappers
-import java.util.ArrayList
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.map
+import java.util.*
 
-class GetUsersUseCase(private val dataBase: MusicDataBase? ) {
+class GetUsersUseCase(private val dataBase: MusicDataBase?) {
 
-    suspend fun getUsers(): List<User> {
+    fun getUsers(): Flow<List<User>> {
         if (dataBase == null) {
-            return emptyList()
+            return emptyFlow()
         }
 
-        val entities = dataBase.songDao().getAllUsers()
-        val users = ArrayList<User>()
-        for (entity in entities) {
-            users.add(DataBaseMappers.mapToUser(entity))
+
+        return dataBase.songDao().getAllUsers().map {
+            val users = ArrayList<User>()
+            for (entity in it) {
+                users.add(DataBaseMappers.mapToUser(entity))
+            }
+            users
         }
-        return users
     }
 }

@@ -7,13 +7,14 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.example.testlibrarysong.business.domain.PlayList
 import com.example.testlibrarysong.datasourse.room.entities.*
+import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.json.Json
 
 @Dao
 interface MusicDao {
 
     @Query("SELECT * FROM users")
-    suspend fun getAllUsers(): List<UserEntity>
+    fun getAllUsers(): Flow<List<UserEntity>>
 
     @Query("SELECT * FROM play_lists")
     suspend fun getAllPlaylists(): List<PlayListEntity>

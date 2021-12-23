@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.testlibrarysong.datasourse.room.entities.*
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 @Database(
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
         PlayListEntity::class,
         UserPlaylistCrossReference::class,
         PlaylistSongCrossReference::class
-    ], version = 2
+    ], version = 1
 )
 abstract class MusicDataBase : RoomDatabase() {
     abstract fun songDao(): MusicDao
@@ -26,27 +26,38 @@ abstract class MusicDataBase : RoomDatabase() {
     companion object {
         private const val DATABASE_NAME = "Songs.db"
 
-        fun create(context: Context): MusicDataBase {
+        @Volatile
+        private var INSTANCE: MusicDataBase? = null
 
+        fun getDatabase(context: Context): MusicDataBase {
+
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: buildDataBase(context).also {
+                    INSTANCE = it
+                }
+            }
+        }
+
+        private fun buildDataBase(context: Context): MusicDataBase {
             return Room.databaseBuilder(
-                context,
+                context.applicationContext,
                 MusicDataBase::class.java,
                 DATABASE_NAME
-            )
-                .addCallback(
-                    object : Callback() {
-                        override fun onCreate(db: SupportSQLiteDatabase) {
-                            super.onCreate(db)
-                            // insert the data on the IO Thread
+            ).addCallback(
+                object : Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        // insert the data on the IO Thread
 
-                            val jsonFile: String = context.assets
-                                .open("userPlaylistsSongsDAta.json").bufferedReader()
-                                .use {
-                                    it.readText()
-                                }
-                            val response = Gson().fromJson(jsonFile, ResponseData::class.java)
-                            val dao = create(context).songDao()
-                            CoroutineScope(Dispatchers.IO).launch {
+                        val jsonFile: String = context.assets
+                            .open("userPlaylistsSongsDAta.json").bufferedReader()
+                            .use {
+                                it.readText()
+                            }
+                        val response = Gson().fromJson(jsonFile, ResponseData::class.java)
+                        INSTANCE?.let {
+                            val dao = it.songDao()
+                            CoroutineScope(SupervisorJob()).launch {
                                 dao.insertAllUsers(response.users)
                                 dao.insertAllPlaylists(response.playlists)
                                 dao.insertAllSongs(response.songs)
@@ -55,7 +66,8 @@ abstract class MusicDataBase : RoomDatabase() {
                             }
                         }
                     }
-                )
+                }
+            )
                 .build()
         }
     }
