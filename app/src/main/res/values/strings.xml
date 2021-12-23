@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TestLibrarySong</string>
+    <string name="users_list">Users list</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="email_description">Email / Description</string>
+    <string name="song_name">Song name</string>
+</resources>
