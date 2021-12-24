@@ -7,12 +7,12 @@ import com.example.testlibrarysong.datasourse.room.entities.PlayListEntity
 import com.example.testlibrarysong.datasourse.room.entities.UserEntity
 import com.example.testlibrarysong.datasourse.room.entities.UserPlaylistCrossReference
 
-data class UserWithPlaylists(
-    @Embedded val user: UserEntity,
+data class UsersByPlaylist(
+    @Embedded val playList: PlayListEntity,
     @Relation(
-        parentColumn = "userId",
-        entityColumn = "playlistId",
+        parentColumn = "playlistId",
+        entityColumn = "userId",
         associateBy = Junction(UserPlaylistCrossReference::class)
     )
-    val playlists: List<PlayListEntity>
+    val users: List<UserEntity>
 )

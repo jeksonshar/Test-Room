@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
 import com.example.testlibrarysong.business.domain.PlayList
+import com.example.testlibrarysong.business.domain.Song
 import com.example.testlibrarysong.business.usecases.GetSongsUseCase
 import com.example.testlibrarysong.databinding.UserListFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
+import com.example.testlibrarysong.presentation.ui.playlists.UserPlaylistsFragment
 
 class PlaylistSongsFragment : Fragment() {
 
@@ -25,9 +27,19 @@ class PlaylistSongsFragment : Fragment() {
     private val viewModel: PlaylistSongsViewModel by viewModels {
         PlaylistSongsViewModelFactory(GetSongsUseCase(db))
     }
+    private var clickListener: SongClickListener? = object : SongClickListener {
+        override fun openPlaylistsBySong(song: Song) {
+            parentFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fragmentContainer, UserPlaylistsFragment.newInstance(song))
+                .commit()
+        }
+    }
 
     private val adapter by lazy {
-        PlaylistSongsAdapter()
+        clickListener?.let {
+            PlaylistSongsAdapter(it)
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -45,7 +57,7 @@ class PlaylistSongsFragment : Fragment() {
             val layoutManager = LinearLayoutManager(context)
             recyclerUsers.layoutManager = layoutManager
             recyclerUsers.adapter = adapter
-            val songs = PlaylistSongsSingleton.playList?.name + getString(R.string.playlist_songs)
+            val songs =  getString(R.string.songs_by) + PlaylistSongsSingleton.playList?.name
             tvUsers.text = songs
         }
         return binding.root
@@ -57,7 +69,7 @@ class PlaylistSongsFragment : Fragment() {
         viewModel.getSongs()
 
         viewModel.songs.observe(this, {
-            adapter.submitList(it)
+            adapter?.submitList(it)
         })
     }
 
@@ -68,7 +80,7 @@ class PlaylistSongsFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-//        clickListener = null
+        clickListener = null
     }
 
     companion object {

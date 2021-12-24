@@ -5,8 +5,8 @@
     <string name="last_name">Last name</string>
     <string name="email_description">Email / Description</string>
     <string name="song_name">Song name</string>
-    <string name="user_playlists">\'s playlists</string>
-    <string name="playlist_songs">\'s songs</string>
+    <string name="songs_by">Songs by\u0020</string>
+    <string name="playlist_by">Playlists by\u0020</string>
     <string name="details">Details</string>
     <string name="users_by_library">Users by library</string>
     <string name="libraries_by_song">Libraries by Song</string>

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
 import com.example.testlibrarysong.business.domain.PlayList
+import com.example.testlibrarysong.business.domain.Song
 import com.example.testlibrarysong.business.domain.User
 import com.example.testlibrarysong.business.usecases.GetPlaylistsUseCase
 import com.example.testlibrarysong.databinding.UserListFragmentBinding
@@ -68,7 +69,11 @@ class UserPlaylistsFragment : Fragment() {
             val layoutManager = LinearLayoutManager(context)
             recyclerUsers.layoutManager = layoutManager
             recyclerUsers.adapter = adapter
-            val userName = UserPlaylistsSingleton.user?.firstName + getString(R.string.playlist_songs)
+            val userName: String = if (SongPlaylistsSingleton.song == null) {
+                getString(R.string.playlist_by) + UserPlaylistsSingleton.user?.firstName
+            } else {
+                getString(R.string.playlist_by) + SongPlaylistsSingleton.song?.name
+            }
             tvUsers.text = userName
         }
         return binding.root
@@ -98,6 +103,11 @@ class UserPlaylistsFragment : Fragment() {
 
         fun newInstance(user: User): UserPlaylistsFragment {
             UserPlaylistsSingleton.user = user
+            return UserPlaylistsFragment()
+        }
+
+        fun newInstance(song: Song): UserPlaylistsFragment {
+            SongPlaylistsSingleton.song = song
             return UserPlaylistsFragment()
         }
     }

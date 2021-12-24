@@ -31,7 +31,7 @@ class GetUsersUseCase(private val dataBase: MusicDataBase?) {
             return emptyFlow()
         }
 
-        return dataBase.songDao().getUsersByPL(playList.id).map {
+        return dataBase.songDao().getUsersByPlaylist(playList.id).map {
             val entities = it.users
             val users = ArrayList<User>()
 

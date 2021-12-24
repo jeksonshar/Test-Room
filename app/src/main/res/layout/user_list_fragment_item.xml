@@ -59,7 +59,7 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:text="@string/email_description"
-            app:layout_constraintBottom_toTopOf="@id/btnDetails"
+            app:layout_constraintBottom_toTopOf="@+id/btnUsersByPL"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvFirstName" />
@@ -73,8 +73,8 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnUsersByPL"
-            app:layout_constraintTop_toBottomOf="@+id/tvEMailOrDescription"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="@+id/btnUsersByPL"
+            app:layout_constraintBottom_toBottomOf="@+id/btnUsersByPL"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnUsersByPL"
@@ -85,8 +85,8 @@
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@id/btnDetails"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btnDetails"
-            app:layout_constraintBottom_toBottomOf="@+id/btnDetails"/>
+            app:layout_constraintTop_toBottomOf="@+id/tvEMailOrDescription"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

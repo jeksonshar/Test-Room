@@ -3,6 +3,7 @@ package com.example.testlibrarysong.presentation.ui.songs
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -11,7 +12,9 @@ import com.example.testlibrarysong.R
 import com.example.testlibrarysong.business.domain.Song
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 
-class PlaylistSongsAdapter: ListAdapter<Song, SongViewHolder>(SongComparator()) {
+class PlaylistSongsAdapter(
+    val clickListener: SongClickListener
+): ListAdapter<Song, SongViewHolder>(SongComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
         return SongViewHolder(
@@ -21,6 +24,9 @@ class PlaylistSongsAdapter: ListAdapter<Song, SongViewHolder>(SongComparator()) 
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         holder.onBind(getItem(position))
+        holder.itemView.findViewById<AppCompatButton>(R.id.btnUsersByPL).setOnClickListener {
+            clickListener.openPlaylistsBySong(getItem(position))
+        }
     }
 }
 
@@ -34,7 +40,6 @@ class SongViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             tvFirstName.text = song.singerName
             tvLastName.text = song.singerLastName
             tvEMailOrDescription.text = song.description
-            btnDetails.isVisible = true
             btnUsersByPL.setText(R.string.libraries_by_song)
             btnUsersByPL.isVisible = true
         }

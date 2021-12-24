@@ -5,10 +5,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.testlibrarysong.business.domain.PlayList
 import com.example.testlibrarysong.datasourse.room.entities.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.serialization.json.Json
 
 @Dao
 interface MusicDao {
@@ -16,11 +14,13 @@ interface MusicDao {
     @Query("SELECT * FROM users")
     fun getAllUsers(): Flow<List<UserEntity>>
 
+    @Transaction
     @Query("SELECT * FROM play_lists WHERE playlistId == :plId")
-    fun getUsersByPL(plId: Int): Flow<PlaylistWithUsers>
+    fun getUsersByPlaylist(plId: Int): Flow<UsersByPlaylist>
 
-    @Query("SELECT * FROM play_lists")
-    suspend fun getAllPlaylists(): List<PlayListEntity>
+    @Transaction
+    @Query("SELECT * FROM songs WHERE songId == :songId")
+    suspend fun getPlaylistsBySong(songId: Int): PlaylistsBySong
 
     @Insert(onConflict = REPLACE)
     suspend fun insertAllUsers(users: List<UserEntity>)
@@ -39,10 +39,10 @@ interface MusicDao {
 
     @Transaction
     @Query("SELECT * FROM users WHERE userId == :userId")
-    suspend fun getPlaylistsByUser(userId: Int): UserWithPlaylists
+    suspend fun getPlaylistsByUser(userId: Int): PlaylistsByUser
 
     @Transaction
     @Query("SELECT * FROM play_lists WHERE playlistId == :playlistId")
-    suspend fun getSongsByPlaylist(playlistId: Int): PlaylistWithSongs
+    suspend fun getSongsByPlaylist(playlistId: Int): SongsByPlaylist
 
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testlibrarysong.business.domain.PlayList
 import com.example.testlibrarysong.business.usecases.GetPlaylistsUseCase
+import com.example.testlibrarysong.presentation.ui.songs.PlaylistSongsSingleton
 import kotlinx.coroutines.launch
 
 class UserPlaylistsViewModel(
@@ -13,15 +14,23 @@ class UserPlaylistsViewModel(
 
     val playlists = MutableLiveData<List<PlayList>>()
 
+    private var userId = UserPlaylistsSingleton.user?.id
+    private val songId = SongPlaylistsSingleton.song?.id
+
     fun getPlaylists() {
-        val userId = UserPlaylistsSingleton.user?.id
-        viewModelScope.launch {
-            playlists.value = getPlaylistsUseCase.getPlaylists(userId ?: -1)
+        if (SongPlaylistsSingleton.song == null) {
+            viewModelScope.launch {
+                playlists.value = getPlaylistsUseCase.getPlaylistsByUser(userId ?: -1)
+            }
+        } else {
+            viewModelScope.launch {
+                playlists.value = getPlaylistsUseCase.getPlaylistsBySong(songId ?: -1)
+            }
         }
     }
 
     override fun onCleared() {
         super.onCleared()
-        UserPlaylistsSingleton.clear()
+        SongPlaylistsSingleton.clear()
     }
 }
