@@ -7,5 +7,8 @@
     <string name="song_name">Song name</string>
     <string name="user_playlists">\'s playlists</string>
     <string name="playlist_songs">\'s songs</string>
+    <string name="details">Details</string>
+    <string name="users_by_library">Users by library</string>
+    <string name="libraries_by_song">Libraries by Song</string>
 
 </resources>

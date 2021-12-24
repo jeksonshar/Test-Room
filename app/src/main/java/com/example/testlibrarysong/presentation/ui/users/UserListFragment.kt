@@ -10,11 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
+import com.example.testlibrarysong.business.domain.PlayList
 import com.example.testlibrarysong.business.domain.User
 import com.example.testlibrarysong.business.usecases.GetUsersUseCase
 import com.example.testlibrarysong.databinding.UserListFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.presentation.ui.playlists.UserPlaylistsFragment
+import com.example.testlibrarysong.presentation.ui.songs.PlaylistSongsSingleton
 
 class UserListFragment : Fragment() {
 
@@ -60,12 +62,18 @@ class UserListFragment : Fragment() {
             val layoutManager = LinearLayoutManager(context)
             recyclerUsers.layoutManager = layoutManager
             recyclerUsers.adapter = adapter
+            if (PlaylistSongsSingleton.playList != null) {
+                val tmp = getString(R.string.users_list) + " by " + PlaylistSongsSingleton.playList!!.name
+                tvUsers.text = tmp
+            }
         }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getUsers()
 
         viewModel.users.observe(viewLifecycleOwner, {
             adapter?.submitList(it)
@@ -80,6 +88,17 @@ class UserListFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         clickListener = null
+    }
+
+    companion object {
+        fun newInstance(playList: PlayList? = null): UserListFragment {
+            return if (playList == null) {
+                UserListFragment()
+            } else {
+                PlaylistSongsSingleton.playList = playList
+                UserListFragment()
+            }
+        }
     }
 
 

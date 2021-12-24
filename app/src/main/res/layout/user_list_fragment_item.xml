@@ -59,10 +59,34 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:text="@string/email_description"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnDetails"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvFirstName" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/details"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnUsersByPL"
+            app:layout_constraintTop_toBottomOf="@+id/tvEMailOrDescription"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnUsersByPL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/users_by_library"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@id/btnDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnDetails"
+            app:layout_constraintBottom_toBottomOf="@+id/btnDetails"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

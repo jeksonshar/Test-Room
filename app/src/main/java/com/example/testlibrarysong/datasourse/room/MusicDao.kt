@@ -16,6 +16,9 @@ interface MusicDao {
     @Query("SELECT * FROM users")
     fun getAllUsers(): Flow<List<UserEntity>>
 
+    @Query("SELECT * FROM play_lists WHERE playlistId == :plId")
+    fun getUsersByPL(plId: Int): Flow<PlaylistWithUsers>
+
     @Query("SELECT * FROM play_lists")
     suspend fun getAllPlaylists(): List<PlayListEntity>
 

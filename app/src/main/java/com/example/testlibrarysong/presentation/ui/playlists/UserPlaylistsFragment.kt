@@ -16,6 +16,7 @@ import com.example.testlibrarysong.business.usecases.GetPlaylistsUseCase
 import com.example.testlibrarysong.databinding.UserListFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.presentation.ui.songs.PlaylistSongsFragment
+import com.example.testlibrarysong.presentation.ui.users.UserListFragment
 
 class UserPlaylistsFragment : Fragment() {
 
@@ -29,13 +30,22 @@ class UserPlaylistsFragment : Fragment() {
     }
 
     private var clickListener: PlaylistClickListener? = object : PlaylistClickListener {
-        override fun openPlaylistSongs(playlist: PlayList) {
+
+        override fun openSongsByPlaylist(playlist: PlayList) {
             parentFragmentManager.beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.fragmentContainer, PlaylistSongsFragment.newInstance(playlist))
                 .commit()
         }
+
+        override fun openUsersByPlaylist(playlist: PlayList) {
+            parentFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fragmentContainer, UserListFragment.newInstance(playlist))
+                .commit()
+        }
     }
+
     private val adapter by lazy {
         clickListener?.let {
             UserPlaylistAdapter(it)

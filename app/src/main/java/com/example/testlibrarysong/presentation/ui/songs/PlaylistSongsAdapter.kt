@@ -28,11 +28,16 @@ class SongViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = UserListFragmentItemBinding.bind(itemView)
     fun onBind(song: Song) {
-        binding.tvSongName.text = song.name
-        binding.tvSongName.isVisible = true
-        binding.tvFirstName.text = song.singerName
-        binding.tvLastName.text = song.singerLastName
-        binding.tvEMailOrDescription.text = song.description
+        binding.apply {
+            tvSongName.text = song.name
+            tvSongName.isVisible = true
+            tvFirstName.text = song.singerName
+            tvLastName.text = song.singerLastName
+            tvEMailOrDescription.text = song.description
+            btnDetails.isVisible = true
+            btnUsersByPL.setText(R.string.libraries_by_song)
+            btnUsersByPL.isVisible = true
+        }
     }
 }
 

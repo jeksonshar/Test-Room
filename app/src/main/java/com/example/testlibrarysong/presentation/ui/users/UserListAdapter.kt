@@ -31,9 +31,11 @@ class UserListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = UserListFragmentItemBinding.bind(itemView)
     fun onBind(user: User) {
-        binding.tvFirstName.text = user.firstName
-        binding.tvLastName.text = user.lastName
-        binding.tvEMailOrDescription.text = user.email
+        binding.apply {
+            tvFirstName.text = user.firstName
+            tvLastName.text = user.lastName
+            tvEMailOrDescription.text = user.email
+        }
     }
 }
 
