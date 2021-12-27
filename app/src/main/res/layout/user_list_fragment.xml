@@ -7,28 +7,61 @@
     android:layout_height="match_parent"
     tools:context=".presentation.ui.users.UserListFragment">
 
-    <TextView
-        android:id="@+id/tvUsers"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_tvUsers"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:background="@color/cream"
-        android:text="@string/users_list"
-        android:textSize="16sp"
-        android:textStyle="bold|italic"
-        android:gravity="center"
+        android:backgroundTint="@color/cream"
         app:layout_constraintBottom_toTopOf="@id/recyclerUsers"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cardView_spinner"
+        app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvUsers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/users_list"
+            android:textSize="16sp"
+            android:textStyle="bold|italic" />
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView_spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardBackgroundColor="@color/cream"
+        app:cardElevation="4dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/gray"
+        app:cardCornerRadius="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView_tvUsers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/cardView_tvUsers"
+        app:layout_constraintTop_toTopOf="@id/cardView_tvUsers">
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:popupBackground="@color/cream_transparent"
+            android:entries="@array/fragments"
+            android:overlapAnchor="false"
+            android:spinnerMode="dropdown" />
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerUsers"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUsers"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView_tvUsers" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

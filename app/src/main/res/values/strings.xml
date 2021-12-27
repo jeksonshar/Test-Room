@@ -10,5 +10,11 @@
     <string name="details">Details</string>
     <string name="users_by_library">Users by library</string>
     <string name="libraries_by_song">Libraries by Song</string>
+    <string name="label">Label</string>
+    <string-array name="fragments">
+        <item>Tasks 1..5</item>
+        <item>Task 6</item>
+        <item>Task 7</item>
+    </string-array>
 
 </resources>
