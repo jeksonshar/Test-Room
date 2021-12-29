@@ -9,7 +9,7 @@ import com.example.testlibrarysong.datasourse.room.entities.UserEntity
 
 object DataBaseMappers {
 
-    fun mapToUser(entity:UserEntity): User {
+    fun mapToUser(entity: UserEntity): User {
         return User(
             id = entity.userId,
             firstName = entity.userFirstName,

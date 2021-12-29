@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.testlibrarysong.MainActivity.Companion.CURRENT_FRAGMENT_TAG
 import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
 import com.example.testlibrarysong.business.domain.PlayList
@@ -34,14 +36,14 @@ class UserPlaylistsFragment : Fragment() {
 
         override fun openSongsByPlaylist(playlist: PlayList) {
             parentFragmentManager.beginTransaction()
-                .addToBackStack(null)
+//                .addToBackStack(null)
                 .replace(R.id.fragmentContainer, PlaylistSongsFragment.newInstance(playlist))
                 .commit()
         }
 
         override fun openUsersByPlaylist(playlist: PlayList) {
             parentFragmentManager.beginTransaction()
-                .addToBackStack(null)
+//                .addToBackStack(null)
                 .replace(R.id.fragmentContainer, UserListFragment.newInstance(playlist))
                 .commit()
         }
@@ -74,6 +76,7 @@ class UserPlaylistsFragment : Fragment() {
             } else {
                 getString(R.string.playlist_by) + SongPlaylistsSingleton.song?.name
             }
+            val tvUsers = requireActivity().findViewById<AppCompatTextView>(R.id.tvUsers)
             tvUsers.text = userName
         }
         return binding.root

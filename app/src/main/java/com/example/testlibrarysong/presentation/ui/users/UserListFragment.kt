@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.testlibrarysong.MainActivity
 import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
 import com.example.testlibrarysong.business.domain.PlayList
@@ -62,9 +64,12 @@ class UserListFragment : Fragment() {
             val layoutManager = LinearLayoutManager(context)
             recyclerUsers.layoutManager = layoutManager
             recyclerUsers.adapter = adapter
+            val tvUsers = requireActivity().findViewById<AppCompatTextView>(R.id.tvUsers)
             if (PlaylistSongsSingleton.playList != null) {
                 val tmp = getString(R.string.users_list) + " by " + PlaylistSongsSingleton.playList!!.name
                 tvUsers.text = tmp
+            } else {
+                tvUsers.setText(R.string.users_list)
             }
         }
         return binding.root

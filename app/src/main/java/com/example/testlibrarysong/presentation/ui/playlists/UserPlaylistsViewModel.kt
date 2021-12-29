@@ -32,5 +32,7 @@ class UserPlaylistsViewModel(
     override fun onCleared() {
         super.onCleared()
         SongPlaylistsSingleton.clear()
+        UserPlaylistsSingleton.clear()
+        PlaylistSongsSingleton.clear()
     }
 }

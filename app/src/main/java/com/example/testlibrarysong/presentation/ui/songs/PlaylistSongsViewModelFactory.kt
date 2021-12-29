@@ -7,7 +7,7 @@ import com.example.testlibrarysong.business.usecases.GetSongsUseCase
 @Suppress("UNCHECKED_CAST")
 class PlaylistSongsViewModelFactory(
     private val getSongsUseCase: GetSongsUseCase
-): ViewModelProvider.Factory {
+) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return PlaylistSongsViewModel(getSongsUseCase) as T

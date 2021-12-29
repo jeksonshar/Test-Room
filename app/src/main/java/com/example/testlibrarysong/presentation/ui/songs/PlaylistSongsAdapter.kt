@@ -13,13 +13,14 @@ import com.example.testlibrarysong.business.domain.Song
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 
 class PlaylistSongsAdapter(
-    val clickListener: SongClickListener
-): ListAdapter<Song, SongViewHolder>(SongComparator()) {
+    private val clickListener: SongClickListener
+) : ListAdapter<Song, SongViewHolder>(SongComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
         return SongViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.user_list_fragment_item, parent, false))
+                .inflate(R.layout.user_list_fragment_item, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {

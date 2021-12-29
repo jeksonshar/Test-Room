@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.testlibrarysong.MainActivity
 import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
 import com.example.testlibrarysong.business.domain.PlayList
@@ -30,7 +32,7 @@ class PlaylistSongsFragment : Fragment() {
     private var clickListener: SongClickListener? = object : SongClickListener {
         override fun openPlaylistsBySong(song: Song) {
             parentFragmentManager.beginTransaction()
-                .addToBackStack(null)
+//                .addToBackStack(null)
                 .replace(R.id.fragmentContainer, UserPlaylistsFragment.newInstance(song))
                 .commit()
         }
@@ -57,7 +59,8 @@ class PlaylistSongsFragment : Fragment() {
             val layoutManager = LinearLayoutManager(context)
             recyclerUsers.layoutManager = layoutManager
             recyclerUsers.adapter = adapter
-            val songs =  getString(R.string.songs_by) + PlaylistSongsSingleton.playList?.name
+            val songs = getString(R.string.songs_by) + PlaylistSongsSingleton.playList?.name
+            val tvUsers = requireActivity().findViewById<AppCompatTextView>(R.id.tvUsers)
             tvUsers.text = songs
         }
         return binding.root

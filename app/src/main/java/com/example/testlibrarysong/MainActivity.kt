@@ -1,31 +1,23 @@
 package com.example.testlibrarysong
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.example.testlibrarysong.presentation.ui.selectusers.SelectUsersFragment
 import com.example.testlibrarysong.presentation.ui.users.UserListFragment
 
-class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, UserListFragment.newInstance())
-                .commit()
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
         val spinner: Spinner = findViewById(R.id.spinner)
+
         ArrayAdapter.createFromResource(
             this,
             R.array.fragments,
@@ -34,14 +26,32 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
         }
-        spinner.onItemSelectedListener = this
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (savedInstanceState == null) {
+                    when (position) {
+                        0 -> moveToFragment(UserListFragment.newInstance())
+                        1 -> moveToFragment(SelectUsersFragment())
+                        2 -> moveToFragment(SelectUsersFragment())
+                    }
+                } else {
+                    supportFragmentManager.findFragmentByTag(CURRENT_FRAGMENT_TAG)
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
     }
 
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        val choose = resources.getStringArray(R.array.fragments)
-        Toast.makeText(this, choose[p2].toString(), Toast.LENGTH_LONG).show()
+    private fun moveToFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment, CURRENT_FRAGMENT_TAG)
+            .commit()
     }
 
-    override fun onNothingSelected(p0: AdapterView<*>?) {
+    companion object {
+        const val CURRENT_FRAGMENT_TAG = "CurrentFragment"
     }
 }

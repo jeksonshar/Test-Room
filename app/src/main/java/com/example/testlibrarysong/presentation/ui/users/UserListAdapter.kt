@@ -15,8 +15,10 @@ class UserListAdapter(
 ) : ListAdapter<User, UserListViewHolder>(UserComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
-        return UserListViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.user_list_fragment_item, parent, false))
+        return UserListViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.user_list_fragment_item, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: UserListViewHolder, position: Int) {

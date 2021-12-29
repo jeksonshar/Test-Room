@@ -10,7 +10,7 @@ import com.example.testlibrarysong.business.usecases.GetUsersUseCase
 class UserListViewModelFactory(
     private val getUsersUseCase: GetUsersUseCase,
     owner: SavedStateRegistryOwner
-): AbstractSavedStateViewModelFactory(owner, null) {
+) : AbstractSavedStateViewModelFactory(owner, null) {
 
     override fun <T : ViewModel?> create(
         key: String,
