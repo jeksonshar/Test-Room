@@ -16,7 +16,7 @@ class PlaylistSongsViewModel(
     fun getSongs() {
         val playListId = PlaylistSongsSingleton.playList?.id
         viewModelScope.launch {
-            songs.value = getSongsUseCase.getSongs(playListId ?: -1)
+            songs.value = getSongsUseCase.getSongs(playListId ?: 1)
         }
     }
 

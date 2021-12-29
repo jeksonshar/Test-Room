@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testlibrarysong.business.domain.PlayList
 import com.example.testlibrarysong.business.usecases.GetPlaylistsUseCase
-import com.example.testlibrarysong.presentation.ui.songs.PlaylistSongsSingleton
 import kotlinx.coroutines.launch
 
 class UserPlaylistsViewModel(
@@ -20,11 +19,11 @@ class UserPlaylistsViewModel(
     fun getPlaylists() {
         if (SongPlaylistsSingleton.song == null) {
             viewModelScope.launch {
-                playlists.value = getPlaylistsUseCase.getPlaylistsByUser(userId ?: -1)
+                playlists.value = getPlaylistsUseCase.getPlaylistsByUser(userId ?: 1)
             }
         } else {
             viewModelScope.launch {
-                playlists.value = getPlaylistsUseCase.getPlaylistsBySong(songId ?: -1)
+                playlists.value = getPlaylistsUseCase.getPlaylistsBySong(songId ?: 1)
             }
         }
     }
@@ -33,6 +32,6 @@ class UserPlaylistsViewModel(
         super.onCleared()
         SongPlaylistsSingleton.clear()
         UserPlaylistsSingleton.clear()
-        PlaylistSongsSingleton.clear()
+//        PlaylistSongsSingleton.clear()
     }
 }

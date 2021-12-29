@@ -9,7 +9,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.testlibrarysong.MainActivity
 import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
 import com.example.testlibrarysong.business.domain.PlayList
@@ -32,7 +31,7 @@ class PlaylistSongsFragment : Fragment() {
     private var clickListener: SongClickListener? = object : SongClickListener {
         override fun openPlaylistsBySong(song: Song) {
             parentFragmentManager.beginTransaction()
-//                .addToBackStack(null)
+                .addToBackStack(null)
                 .replace(R.id.fragmentContainer, UserPlaylistsFragment.newInstance(song))
                 .commit()
         }
