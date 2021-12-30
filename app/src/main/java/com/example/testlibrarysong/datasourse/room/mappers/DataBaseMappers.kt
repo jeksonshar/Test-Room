@@ -35,4 +35,18 @@ object DataBaseMappers {
             description = entity.songDescription
         )
     }
+
+    fun mapToPlaylistsEntities(playlists: List<PlayList>): List<PlayListEntity> {
+        val entities = arrayListOf<PlayListEntity>()
+        for (playlist in playlists) {
+            entities.add(
+                PlayListEntity(
+                    playlist.id,
+                    playlist.name,
+                    playlist.description
+                )
+            )
+        }
+        return entities
+    }
 }

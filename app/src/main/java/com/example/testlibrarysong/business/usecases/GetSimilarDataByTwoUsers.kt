@@ -8,11 +8,11 @@ import com.example.testlibrarysong.datasourse.room.mappers.DataBaseMappers
 import kotlinx.coroutines.flow.*
 import java.util.ArrayList
 
-class GetSimilarDataByTwoUsers(
+open class GetSimilarDataByTwoUsers(
     private val dataBase: MusicDataBase?
 ) {
 
-    suspend fun getPlaylistsByUser(userId: Int): List<PlayList> {
+    open suspend fun getPlaylistsByUser(userId: Int): List<PlayList> {
         if (dataBase == null) {
             return emptyList()
         }
@@ -29,7 +29,6 @@ class GetSimilarDataByTwoUsers(
         if (dataBase == null) {
             return emptyFlow()
         }
-
 
         return dataBase.songDao().getAllUsers().map {
             val users = mutableListOf<User>()

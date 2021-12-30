@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.testlibrarysong.presentation.ui.selectsongs.SelectSongsFragment
 import com.example.testlibrarysong.presentation.ui.selectusers.SelectUsersFragment
 import com.example.testlibrarysong.presentation.ui.users.UserListFragment
 
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                     when (position) {
                         0 -> moveToFragment(UserListFragment.newInstance())
                         1 -> moveToFragment(SelectUsersFragment())
-                        2 -> moveToFragment(SelectUsersFragment())
+                        2 -> moveToFragment(SelectSongsFragment())
                     }
                 } else {
                     supportFragmentManager.findFragmentByTag(CURRENT_FRAGMENT_TAG)

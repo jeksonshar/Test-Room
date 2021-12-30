@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testlibrarysong.business.domain.PlayList
+import com.example.testlibrarysong.business.domain.SongPlaylistsSingleton
+import com.example.testlibrarysong.business.domain.UserPlaylistsSingleton
 import com.example.testlibrarysong.business.usecases.GetPlaylistsUseCase
 import kotlinx.coroutines.launch
 

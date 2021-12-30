@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
 import com.example.testlibrarysong.business.domain.PlayList
+import com.example.testlibrarysong.business.domain.PlaylistSongsSingleton
 import com.example.testlibrarysong.business.domain.Song
 import com.example.testlibrarysong.business.usecases.GetSongsUseCase
 import com.example.testlibrarysong.databinding.UserListFragmentBinding

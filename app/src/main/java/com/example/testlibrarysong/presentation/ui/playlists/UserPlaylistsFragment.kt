@@ -11,9 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
-import com.example.testlibrarysong.business.domain.PlayList
-import com.example.testlibrarysong.business.domain.Song
-import com.example.testlibrarysong.business.domain.User
+import com.example.testlibrarysong.business.domain.*
 import com.example.testlibrarysong.business.usecases.GetPlaylistsUseCase
 import com.example.testlibrarysong.databinding.UserListFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
@@ -67,8 +65,7 @@ class UserPlaylistsFragment : Fragment() {
     ): View {
         _binding = UserListFragmentBinding.inflate(inflater, container, false)
         binding.apply {
-            val layoutManager = LinearLayoutManager(context)
-            recyclerUsers.layoutManager = layoutManager
+            recyclerUsers.layoutManager = LinearLayoutManager(context)
             recyclerUsers.adapter = adapter
             val userName: String = if (SongPlaylistsSingleton.song == null) {
                 getString(R.string.playlist_by) + UserPlaylistsSingleton.user?.firstName

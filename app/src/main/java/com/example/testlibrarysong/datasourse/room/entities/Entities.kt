@@ -31,6 +31,7 @@ data class PlayListEntity(
     @SerializedName("description") val playlistDescription: String = ""
 )
 
+
 @Entity(primaryKeys = ["userId", "playlistId"])
 data class UserPlaylistCrossReference(
     @SerializedName("user_id") val userId: Int,

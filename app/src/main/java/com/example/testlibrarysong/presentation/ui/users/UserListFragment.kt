@@ -9,7 +9,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.testlibrarysong.MainActivity
 import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
 import com.example.testlibrarysong.business.domain.PlayList
@@ -18,7 +17,7 @@ import com.example.testlibrarysong.business.usecases.GetUsersUseCase
 import com.example.testlibrarysong.databinding.UserListFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.presentation.ui.playlists.UserPlaylistsFragment
-import com.example.testlibrarysong.presentation.ui.songs.PlaylistSongsSingleton
+import com.example.testlibrarysong.business.domain.PlaylistSongsSingleton
 
 class UserListFragment : Fragment() {
 

@@ -54,7 +54,7 @@ class SelectUsersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.data.observe(viewLifecycleOwner, {
+        viewModel.usersData.observe(viewLifecycleOwner, {
 //            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, it)
 //            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             val spinnerAdapter = SelectUsersSpinnerAdapter(requireContext(), it)
@@ -71,7 +71,7 @@ class SelectUsersFragment : Fragment() {
         binding.apply {
             spinnerFirst.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    viewModel.getFirstUserPlaylists(viewModel.data.value?.get(position)?.id ?: 1)
+                    viewModel.getFirstUserPlaylists(viewModel.usersData.value?.get(position)?.id ?: 1)
                     Log.d("TAG", "onItemSelected first = ${viewModel.playlistsByUserFirst.value?.size} ")
                 }
 
@@ -81,7 +81,7 @@ class SelectUsersFragment : Fragment() {
 
             spinnerSecond.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    viewModel.getSecondUserPlaylists(viewModel.data.value?.get(position)?.id ?: 1)
+                    viewModel.getSecondUserPlaylists(viewModel.usersData.value?.get(position)?.id ?: 1)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {

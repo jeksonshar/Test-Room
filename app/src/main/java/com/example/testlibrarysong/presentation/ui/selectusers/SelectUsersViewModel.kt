@@ -15,7 +15,7 @@ class SelectUsersViewModel(
 
     val playlistsByUserFirst = MutableLiveData<List<PlayList>>()
     private val playlistsByUserSecond = MutableLiveData<List<PlayList>>()
-    val data = getSimilarDataByTwoUsers.getAllUsers().asLiveData()
+    val usersData = getSimilarDataByTwoUsers.getAllUsers().asLiveData()
     val songsByPlaylists = MutableLiveData<List<Song>>()
 
 

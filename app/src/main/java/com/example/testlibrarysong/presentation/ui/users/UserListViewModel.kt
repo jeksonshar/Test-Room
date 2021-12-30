@@ -3,7 +3,7 @@ package com.example.testlibrarysong.presentation.ui.users
 import androidx.lifecycle.*
 import com.example.testlibrarysong.business.domain.User
 import com.example.testlibrarysong.business.usecases.GetUsersUseCase
-import com.example.testlibrarysong.presentation.ui.songs.PlaylistSongsSingleton
+import com.example.testlibrarysong.business.domain.PlaylistSongsSingleton
 
 class UserListViewModel(
     private val getUsersUseCase: GetUsersUseCase,
