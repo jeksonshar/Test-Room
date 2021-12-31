@@ -13,20 +13,6 @@ class GetUsersByPlaylistUseCase(
     private val dataBase: MusicDataBase?
 ) {
 
-//    fun getUsers(): Flow<List<User>> {
-//        if (dataBase == null) {
-//            return emptyFlow()
-//        }
-//
-//        return dataBase.songDao().getAllUsers().map {
-//            val users = ArrayList<User>()
-//            for (entity in it) {
-//                users.add(DataBaseMappers.mapToUser(entity))
-//            }
-//            users
-//        }
-//    }
-
     fun getUsersByPlaylist(playList: PlayList): Flow<List<User>> {
         if (dataBase == null) {
             return emptyFlow()

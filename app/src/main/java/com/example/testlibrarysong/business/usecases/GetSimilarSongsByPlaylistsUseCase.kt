@@ -2,42 +2,12 @@ package com.example.testlibrarysong.business.usecases
 
 import com.example.testlibrarysong.business.domain.models.PlayList
 import com.example.testlibrarysong.business.domain.models.Song
-import com.example.testlibrarysong.business.domain.models.User
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.datasourse.room.mappers.DataBaseMappers
-import kotlinx.coroutines.flow.*
-import java.util.ArrayList
 
-/*open */class GetSimilarSongsByPlaylistsUseCase(
+class GetSimilarSongsByPlaylistsUseCase(
     private val dataBase: MusicDataBase?
 ) {
-
-//    open suspend fun getPlaylistsByUser(userId: Int): List<PlayList> {
-//        if (dataBase == null) {
-//            return emptyList()
-//        }
-//
-//        val entities = dataBase.songDao().getPlaylistsByUser(userId).playlists
-//        val playlists = ArrayList<PlayList>()
-//        for (entity in entities) {
-//            playlists.add(DataBaseMappers.mapToPlaylist(entity))
-//        }
-//        return playlists
-//    }
-
-//    fun getAllUsers(): Flow<List<User>> {
-//        if (dataBase == null) {
-//            return emptyFlow()
-//        }
-//
-//        return dataBase.songDao().getAllUsers().map {
-//            val users = mutableListOf<User>()
-//            for (entity in it) {
-//                users.add(DataBaseMappers.mapToUser(entity))
-//            }
-//            users
-//        }
-//    }
 
     suspend fun getSimilarSongsByPlaylists(playlists: List<PlayList>): List<Song> {
         if (dataBase == null) {
@@ -58,14 +28,4 @@ import java.util.ArrayList
         }
         return songList
     }
-
-//    fun getSimilarPlaylistsByTwoUsers(firstList: List<PlayList>, secondList: List<PlayList>): List<PlayList> {
-//        val list = arrayListOf<PlayList>()
-//        for (element in firstList) {
-//            if (secondList.contains(element)) {
-//                list.add(element)
-//            }
-//        }
-//        return list
-//    }
 }

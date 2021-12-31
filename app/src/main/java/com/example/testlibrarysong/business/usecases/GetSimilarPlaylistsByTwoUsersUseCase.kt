@@ -1,7 +1,6 @@
 package com.example.testlibrarysong.business.usecases
 
 import com.example.testlibrarysong.business.domain.models.PlayList
-import com.example.testlibrarysong.datasourse.room.MusicDataBase
 
 class GetSimilarPlaylistsByTwoUsersUseCase {
 

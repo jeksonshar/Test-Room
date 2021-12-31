@@ -5,11 +5,11 @@ import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.datasourse.room.mappers.DataBaseMappers
 import java.util.*
 
-/*open */class GetPlaylistsBySongUseCase(
+class GetPlaylistsBySongUseCase(
     private val dataBase: MusicDataBase?
-    )/* : GetSimilarDataByTwoUsersUseCase(dataBase)*/ {
+) {
 
-    /*open */suspend fun getPlaylistsBySong(songId: Int): List<PlayList> {
+    suspend fun getPlaylistsBySong(songId: Int): List<PlayList> {
         if (dataBase == null) {
             return emptyList()
         }

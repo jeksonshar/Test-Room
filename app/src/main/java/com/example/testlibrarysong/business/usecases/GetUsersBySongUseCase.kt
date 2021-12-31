@@ -1,17 +1,14 @@
 package com.example.testlibrarysong.business.usecases
 
+import androidx.collection.arraySetOf
 import com.example.testlibrarysong.business.domain.models.PlayList
-import com.example.testlibrarysong.business.domain.models.Song
 import com.example.testlibrarysong.business.domain.models.User
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.datasourse.room.mappers.DataBaseMappers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.map
 
 class GetUsersBySongUseCase(
     private val dataBase: MusicDataBase?
-)/* : GetPlaylistsBySongUseCase(dataBase)*/ {
+) {
 
     suspend fun getUsersBySong(playlists: List<PlayList>): List<User> {
         if (dataBase == null) {
@@ -23,25 +20,16 @@ class GetUsersBySongUseCase(
         }
 
         val usersToPlaylists = dataBase.songDao().getUsersByPlaylists(playListsId)
-        val users = arrayListOf<User>()
+        val usersSet = arraySetOf<User>()
+        val usersList = arrayListOf<User>()
         for (e in usersToPlaylists) {
             val entity = dataBase.songDao().getUser(e.userId)
-            users.add(DataBaseMappers.mapToUser(entity))
+            usersSet.add(DataBaseMappers.mapToUser(entity))
         }
-        return users
+        usersSet.map {
+            usersList.add(it)
+        }
+        return usersList
     }
 
-//    fun getAllSongs(): Flow<List<Song>> {
-//        if (dataBase == null) {
-//            return emptyFlow()
-//        }
-//
-//        return dataBase.songDao().getAllSongs().map {
-//            val songs = mutableListOf<Song>()
-//            for (entity in it) {
-//                songs.add(DataBaseMappers.mapToSong(entity))
-//            }
-//            songs
-//        }
-//    }
 }
