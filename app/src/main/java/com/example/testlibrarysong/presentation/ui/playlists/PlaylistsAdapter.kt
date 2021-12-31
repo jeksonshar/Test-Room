@@ -13,7 +13,7 @@ import com.example.testlibrarysong.business.domain.models.PlayList
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 
 class PlaylistsAdapter(
-    private val clickListener: PlaylistClickListener
+    private val clickListener: PlaylistClickListener? = null
 ) : ListAdapter<PlayList, PlaylistsViewHolder>(PlaylistsComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistsViewHolder {
@@ -24,35 +24,40 @@ class PlaylistsAdapter(
     }
 
     override fun onBindViewHolder(holder: PlaylistsViewHolder, position: Int) {
-        holder.onBind(getItem(position))
-        holder.itemView.setOnClickListener {
-            openPlaylist(getItem(position))
-        }
-        holder.itemView.findViewById<AppCompatButton>(R.id.btnDetails).setOnClickListener {
-            openPlaylist(getItem(position))
-        }
-        holder.itemView.findViewById<AppCompatButton>(R.id.btnUsersByPL).setOnClickListener {
-            clickListener.openUsersByPlaylist(getItem(position))
+        holder.bind(getItem(position), clickListener != null)
+        if (clickListener != null) {
+            holder.itemView.setOnClickListener {
+                openPlaylist(getItem(position))
+            }
+            holder.itemView.findViewById<AppCompatButton>(R.id.btnDetails).setOnClickListener {
+                openPlaylist(getItem(position))
+            }
+            holder.itemView.findViewById<AppCompatButton>(R.id.btnUsersByPL).setOnClickListener {
+                clickListener.openUsersByPlaylist(getItem(position))
+            }
         }
     }
 
     private fun openPlaylist(playlist: PlayList) {
-        clickListener.openSongsByPlaylist(playlist)
+        clickListener?.openSongsByPlaylist(playlist)
     }
 }
 
 class PlaylistsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = UserListFragmentItemBinding.bind(itemView)
-    fun onBind(playlist: PlayList) {
+
+    fun bind(playlist: PlayList, isClickAble: Boolean) {
         binding.apply {
             tvSongName.text = playlist.name
             tvSongName.isVisible = true
             tvFirstName.visibility = View.GONE
             tvLastName.visibility = View.GONE
             tvEMailOrDescription.text = playlist.description
-            btnDetails.isVisible = true
-            btnUsersByPL.isVisible = true
+            if (isClickAble) {
+                btnDetails.isVisible = true
+                btnUsersByPL.isVisible = true
+            }
         }
     }
 }

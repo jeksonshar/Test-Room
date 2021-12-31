@@ -11,22 +11,25 @@ import com.example.testlibrarysong.business.domain.models.Song
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 import com.example.testlibrarysong.presentation.ui.songs.SongComparator
 
-class SelectUsersRecyclerSongsAdapter  : ListAdapter<Song, SelectUsersRecyclerSongsHolder>(SongComparator()) {
+class SelectUsersRecyclerSongsAdapter : ListAdapter<Song, SelectUsersRecyclerSongsHolder>(SongComparator()) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectUsersRecyclerSongsHolder {
         return SelectUsersRecyclerSongsHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.user_list_fragment_item, parent, false))
+                .inflate(R.layout.user_list_fragment_item, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: SelectUsersRecyclerSongsHolder, position: Int) {
-        holder.onBind(getItem(position))
+        holder.bind(getItem(position))
     }
 }
 
 class SelectUsersRecyclerSongsHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = UserListFragmentItemBinding.bind(itemView)
-    fun onBind(song: Song) {
+
+    fun bind(song: Song) {
         binding.apply {
             tvSongName.text = song.name
             tvSongName.isVisible = true

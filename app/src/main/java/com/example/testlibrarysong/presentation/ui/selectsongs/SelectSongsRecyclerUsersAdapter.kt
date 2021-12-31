@@ -22,14 +22,15 @@ class SelectSongsRecyclerUsersAdapter : ListAdapter<User, SelectSongsRecyclerUse
     }
 
     override fun onBindViewHolder(holder: SelectSongsRecyclerUsersViewHolder, position: Int) {
-        holder.onBind(getItem(position))
+        holder.bind(getItem(position))
     }
 }
 
 class SelectSongsRecyclerUsersViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = UserListFragmentItemBinding.bind(itemView)
-    fun onBind(user: User) {
+
+    fun bind(user: User) {
         binding.apply {
             tvFirstName.text = user.firstName
             tvLastName.text = user.lastName

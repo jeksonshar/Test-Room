@@ -1,44 +1,57 @@
 package com.example.testlibrarysong.presentation.ui.users
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testlibrarysong.R
 import com.example.testlibrarysong.business.domain.models.User
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 
 class UserListAdapter(
-    private val clickListener: UserClickListener
+    private val clickListener: UserClickListener? = null
 ) : ListAdapter<User, UserListViewHolder>(UserComparator()) {
 
-    //изменить адаптер , Влад сбросил в скайпе
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
-        return UserListViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.user_list_fragment_item, parent, false)
-        )
+        return UserListViewHolder.from(parent, clickListener)
     }
 
     override fun onBindViewHolder(holder: UserListViewHolder, position: Int) {
-        holder.onBind(getItem(position))
-        holder.itemView.setOnClickListener {
-            clickListener.openUsersPlaylists(getItem(position))
-        }
+        holder.bind(getItem(position))
     }
 }
 
-class UserListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class UserListViewHolder(private val binding: UserListFragmentItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    private val binding = UserListFragmentItemBinding.bind(itemView)
-    fun onBind(user: User) {
+    private var listener: UserClickListener? = null
+    var userHolder: User? = null
+
+    init {
+        itemView.setOnClickListener {
+            listener.let {
+                userHolder?.let { user ->
+                    it?.openUsersPlaylists(user)
+                }
+            }
+        }
+    }
+
+    fun bind(user: User) {
+        userHolder = user
         binding.apply {
             tvFirstName.text = user.firstName
             tvLastName.text = user.lastName
             tvEMailOrDescription.text = user.email
+        }
+    }
+
+    companion object {
+        fun from(parent: ViewGroup, listener: UserClickListener?): UserListViewHolder {
+            val inflater = LayoutInflater.from(parent.context)
+            val binding = UserListFragmentItemBinding.inflate(inflater, parent, false)
+            val viewHolder = UserListViewHolder(binding)
+            viewHolder.listener = listener
+            return viewHolder
         }
     }
 }

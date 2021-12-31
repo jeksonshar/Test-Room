@@ -55,11 +55,12 @@ class PlaylistsFragment : Fragment() {
     }
 
     private val adapter by lazy {
-        clickListener?.let {
-            PlaylistsAdapter(it)
+        if (SongPlaylistsSingleton.song == null) {
+            PlaylistsAdapter(clickListener)
+        } else {
+            PlaylistsAdapter()
         }
     }
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -92,7 +93,7 @@ class PlaylistsFragment : Fragment() {
         viewModel.getPlaylists()
 
         viewModel.playlists.observe(viewLifecycleOwner, {
-            adapter?.submitList(it)
+            adapter.submitList(it)
         })
     }
 

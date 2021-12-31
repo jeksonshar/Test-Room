@@ -45,8 +45,10 @@ class UserListFragment : Fragment() {
     }
 
     private val adapter by lazy {
-        clickListener?.let {
-            UserListAdapter(it)
+        if (PlaylistSongsSingleton.playList == null) {
+            UserListAdapter(clickListener)
+        } else {
+            UserListAdapter()
         }
     }
 
@@ -80,7 +82,7 @@ class UserListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.users.observe(viewLifecycleOwner, {
-            adapter?.submitList(it)
+            adapter.submitList(it)
         })
     }
 

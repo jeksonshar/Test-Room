@@ -24,7 +24,7 @@ class SongsAdapter(
     }
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
-        holder.onBind(getItem(position))
+        holder.bind(getItem(position))
         holder.itemView.findViewById<AppCompatButton>(R.id.btnUsersByPL).setOnClickListener {
             clickListener.openPlaylistsBySong(getItem(position))
         }
@@ -34,7 +34,7 @@ class SongsAdapter(
 class SongViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = UserListFragmentItemBinding.bind(itemView)
-    fun onBind(song: Song) {
+    fun bind(song: Song) {
         binding.apply {
             tvSongName.text = song.name
             tvSongName.isVisible = true
