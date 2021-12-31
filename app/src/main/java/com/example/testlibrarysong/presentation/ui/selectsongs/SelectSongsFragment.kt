@@ -11,10 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
-import com.example.testlibrarysong.business.usecases.GetPlaylistsAndUsersBySong
+import com.example.testlibrarysong.business.usecases.GetPlaylistsAndUsersBySongUseCase
 import com.example.testlibrarysong.databinding.SelectUsersFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
-import com.example.testlibrarysong.presentation.base.BaseSelectFragment
 import com.example.testlibrarysong.presentation.ui.selectusers.SelectUsersRecyclerPlaylistsAdapter
 
 //class SelectSongsFragment : BaseSelectFragment<SelectUsersFragmentBinding>(SelectUsersFragmentBinding::inflate) {
@@ -26,7 +25,7 @@ class SelectSongsFragment : Fragment() {
     private var db: MusicDataBase? = null
 
     val viewModel: SelectSongViewModel by viewModels {
-        SelectSongViewModelFactory(GetPlaylistsAndUsersBySong(db))
+        SelectSongViewModelFactory(GetPlaylistsAndUsersBySongUseCase(db))
     }
 
     private val adapterPlaylists by lazy {
@@ -88,7 +87,7 @@ class SelectSongsFragment : Fragment() {
             spinnerFirst.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 //                    viewModel.getPlaylistsBySong(viewModel.songData.value?.get(position)?.id ?: 1) // список появляется при старте фрагмента ((
-                    viewModel.selectSongId(viewModel.songData.value?.get(position)?.id ?: 1)
+                    viewModel.selectSongId(position)
                     adapterPlaylists.submitList(null)
                 }
 

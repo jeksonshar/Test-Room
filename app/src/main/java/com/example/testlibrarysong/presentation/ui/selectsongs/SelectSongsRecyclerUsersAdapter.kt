@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testlibrarysong.R
-import com.example.testlibrarysong.business.domain.User
+import com.example.testlibrarysong.business.domain.models.User
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 import com.example.testlibrarysong.presentation.ui.users.UserComparator
 
 class SelectSongsRecyclerUsersAdapter : ListAdapter<User, SelectSongsRecyclerUsersViewHolder>(UserComparator()) {
+
+    // убрать этот адаптер, изменив UserListAdapter сделав  private val clickListener: UserClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectSongsRecyclerUsersViewHolder {
         return SelectSongsRecyclerUsersViewHolder(

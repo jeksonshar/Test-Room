@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testlibrarysong.R
-import com.example.testlibrarysong.business.domain.User
+import com.example.testlibrarysong.business.domain.models.User
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 
 class UserListAdapter(
     private val clickListener: UserClickListener
 ) : ListAdapter<User, UserListViewHolder>(UserComparator()) {
+
+    //изменить адаптер , Влад сбросил в скайпе
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
         return UserListViewHolder(

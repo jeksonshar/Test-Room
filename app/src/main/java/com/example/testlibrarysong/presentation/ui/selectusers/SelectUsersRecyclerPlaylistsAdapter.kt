@@ -7,11 +7,11 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testlibrarysong.R
-import com.example.testlibrarysong.business.domain.PlayList
+import com.example.testlibrarysong.business.domain.models.PlayList
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
-import com.example.testlibrarysong.presentation.ui.playlists.PlaylistComparator
+import com.example.testlibrarysong.presentation.ui.playlists.PlaylistsComparator
 
-class SelectUsersRecyclerPlaylistsAdapter : ListAdapter<PlayList, SelectUsersRecyclerPlaylistViewHolder>(PlaylistComparator())  {
+class SelectUsersRecyclerPlaylistsAdapter : ListAdapter<PlayList, SelectUsersRecyclerPlaylistViewHolder>(PlaylistsComparator())  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectUsersRecyclerPlaylistViewHolder {
         return SelectUsersRecyclerPlaylistViewHolder(

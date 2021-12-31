@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testlibrarysong.R
-import com.example.testlibrarysong.business.domain.Song
+import com.example.testlibrarysong.business.domain.models.Song
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 
-class PlaylistSongsAdapter(
+class SongsAdapter(
     private val clickListener: SongClickListener
 ) : ListAdapter<Song, SongViewHolder>(SongComparator()) {
 

@@ -1,4 +1,4 @@
-package com.example.testlibrarysong.datasourse.room
+package com.example.testlibrarysong.datasourse.room.relation
 
 import androidx.room.Embedded
 import androidx.room.Junction
@@ -7,12 +7,13 @@ import com.example.testlibrarysong.datasourse.room.entities.PlayListEntity
 import com.example.testlibrarysong.datasourse.room.entities.PlaylistSongCrossReference
 import com.example.testlibrarysong.datasourse.room.entities.SongEntity
 
-data class SongsByPlaylist(
-    @Embedded val playlist: PlayListEntity,
+data class PlaylistsBySong(
+    @Embedded val song: SongEntity,
     @Relation(
-        parentColumn = "playlistId",
-        entityColumn = "songId",
+        parentColumn = "songId",
+        entity = PlayListEntity::class,
+        entityColumn = "playlistId",
         associateBy = Junction(PlaylistSongCrossReference::class)
     )
-    val songs: List<SongEntity>
+    val playLists: List<PlayListEntity>
 )

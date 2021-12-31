@@ -1,23 +1,20 @@
 package com.example.testlibrarysong.presentation.ui.users
 
-import androidx.lifecycle.*
-import com.example.testlibrarysong.business.domain.User
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import com.example.testlibrarysong.business.domain.singletons.PlaylistSongsSingleton
 import com.example.testlibrarysong.business.usecases.GetUsersUseCase
-import com.example.testlibrarysong.business.domain.PlaylistSongsSingleton
 
 class UserListViewModel(
-    private val getUsersUseCase: GetUsersUseCase,
+    getUsersUseCase: GetUsersUseCase,
     val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    lateinit var users: LiveData<List<User>>
-
-    fun getUsers() {
-        users = if (PlaylistSongsSingleton.playList == null) {
-            getUsersUseCase.getUsers().asLiveData()
-        } else {
-            getUsersUseCase.getUsers(PlaylistSongsSingleton.playList!!).asLiveData()
-        }
+    val users = if (PlaylistSongsSingleton.playList == null) {
+        getUsersUseCase.getUsers().asLiveData()
+    } else {
+        getUsersUseCase.getUsers(PlaylistSongsSingleton.playList!!).asLiveData()
     }
 
     override fun onCleared() {

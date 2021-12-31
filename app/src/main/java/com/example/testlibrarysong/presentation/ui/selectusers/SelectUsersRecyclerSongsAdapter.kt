@@ -7,7 +7,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testlibrarysong.R
-import com.example.testlibrarysong.business.domain.Song
+import com.example.testlibrarysong.business.domain.models.Song
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 import com.example.testlibrarysong.presentation.ui.songs.SongComparator
 

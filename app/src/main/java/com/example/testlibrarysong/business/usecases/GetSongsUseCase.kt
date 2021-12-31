@@ -1,6 +1,6 @@
 package com.example.testlibrarysong.business.usecases
 
-import com.example.testlibrarysong.business.domain.Song
+import com.example.testlibrarysong.business.domain.models.Song
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.datasourse.room.mappers.DataBaseMappers
 

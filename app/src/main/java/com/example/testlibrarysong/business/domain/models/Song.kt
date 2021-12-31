@@ -1,4 +1,4 @@
-package com.example.testlibrarysong.business.domain
+package com.example.testlibrarysong.business.domain.models
 
 data class Song(
     val id: Int,

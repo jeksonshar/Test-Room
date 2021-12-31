@@ -1,13 +1,15 @@
-package com.example.testlibrarysong.datasourse.room
+package com.example.testlibrarysong.datasourse.room.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.testlibrarysong.business.domain.Song
-import com.example.testlibrarysong.business.domain.User
 import com.example.testlibrarysong.datasourse.room.entities.*
+import com.example.testlibrarysong.datasourse.room.relation.PlaylistsBySong
+import com.example.testlibrarysong.datasourse.room.relation.PlaylistsByUser
+import com.example.testlibrarysong.datasourse.room.relation.SongsByPlaylist
+import com.example.testlibrarysong.datasourse.room.relation.UsersByPlaylist
 import kotlinx.coroutines.flow.Flow
 
 @Dao

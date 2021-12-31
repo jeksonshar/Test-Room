@@ -1,11 +1,11 @@
 package com.example.testlibrarysong.business.usecases
 
-import com.example.testlibrarysong.business.domain.PlayList
+import com.example.testlibrarysong.business.domain.models.PlayList
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.datasourse.room.mappers.DataBaseMappers
 import java.util.*
 
-open class GetPlaylistsUseCase(private val dataBase: MusicDataBase?) : GetSimilarDataByTwoUsers(dataBase) {
+open class GetPlaylistsUseCase(private val dataBase: MusicDataBase?) : GetSimilarDataByTwoUsersUseCase(dataBase) {
 
 //    suspend fun getPlaylistsByUser(userId: Int): List<PlayList> {
 //        if (dataBase == null) {

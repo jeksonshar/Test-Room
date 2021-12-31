@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.example.testlibrarysong.business.domain.Song
-import com.example.testlibrarysong.business.domain.User
+import com.example.testlibrarysong.business.domain.models.Song
 
 class SelectSongsSpinnerAdapter(val context: Context, var data: List<Song>) : BaseAdapter() { // создать и вынести в базовый адаптер
 

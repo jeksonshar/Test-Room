@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.testlibrarysong.business.usecases.GetPlaylistsUseCase
 
 @Suppress("UNCHECKED_CAST")
-class UserPlaylistsViewModelFactory(
+class PlaylistsViewModelFactory(
     private val getPlaylistsUseCase: GetPlaylistsUseCase
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return UserPlaylistsViewModel(getPlaylistsUseCase) as T
+        return PlaylistsViewModel(getPlaylistsUseCase) as T
     }
 }

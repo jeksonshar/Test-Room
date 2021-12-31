@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.example.testlibrarysong.business.domain.User
+import com.example.testlibrarysong.business.domain.models.User
 
 class SelectUsersSpinnerAdapter(val context: Context, var data: List<User>) : BaseAdapter() {
 

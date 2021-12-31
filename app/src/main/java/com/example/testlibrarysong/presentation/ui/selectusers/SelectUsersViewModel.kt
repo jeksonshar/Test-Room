@@ -1,46 +1,47 @@
 package com.example.testlibrarysong.presentation.ui.selectusers
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import com.example.testlibrarysong.business.domain.PlayList
-import com.example.testlibrarysong.business.domain.Song
-import com.example.testlibrarysong.business.usecases.GetSimilarDataByTwoUsers
+import androidx.lifecycle.*
+import com.example.testlibrarysong.business.domain.models.PlayList
+import com.example.testlibrarysong.business.domain.models.Song
+import com.example.testlibrarysong.business.usecases.GetSimilarDataByTwoUsersUseCase
 import kotlinx.coroutines.launch
 
 class SelectUsersViewModel(
-    private val getSimilarDataByTwoUsers: GetSimilarDataByTwoUsers
+    private val getSimilarDataByTwoUsersUseCase: GetSimilarDataByTwoUsersUseCase
 ) : ViewModel() {
 
-    val playlistsByUserFirst = MutableLiveData<List<PlayList>>()
+    private val playlistsByUserFirst = MutableLiveData<List<PlayList>>()
     private val playlistsByUserSecond = MutableLiveData<List<PlayList>>()
-    val usersData = getSimilarDataByTwoUsers.getAllUsers().asLiveData()
-    val songsByPlaylists = MutableLiveData<List<Song>>()
+    val usersData = getSimilarDataByTwoUsersUseCase.getAllUsers().asLiveData()
+    private val _songsByPlaylists = MutableLiveData<List<Song>>()
+    val songsByPlaylists: LiveData<List<Song>> = _songsByPlaylists
 
-
-    fun getFirstUserPlaylists(id: Int) {
+    fun getFirstUserPlaylists(position: Int) {
         viewModelScope.launch {
-            playlistsByUserFirst.value = getSimilarDataByTwoUsers.getPlaylistsByUser(id)
+            val id = usersData.value?.get(position)?.id ?: 1
+            playlistsByUserFirst.value = getSimilarDataByTwoUsersUseCase.getPlaylistsByUser(id)
         }
     }
 
-    fun getSecondUserPlaylists(id: Int) {
+    fun getSecondUserPlaylists(position: Int) {
         viewModelScope.launch {
-            playlistsByUserSecond.value = getSimilarDataByTwoUsers.getPlaylistsByUser(id)
+            val id = usersData.value?.get(position)?.id ?: 1
+            playlistsByUserSecond.value = getSimilarDataByTwoUsersUseCase.getPlaylistsByUser(id)
         }
     }
 
     fun compareUsersPlayList(): List<PlayList> {
-        return getSimilarDataByTwoUsers.compareUsersPlaylist(playlistsByUserFirst.value!!, playlistsByUserSecond.value!!)
+        return if (playlistsByUserFirst.value == null || playlistsByUserSecond.value == null) {
+            emptyList()
+        } else {
+            getSimilarDataByTwoUsersUseCase.compareUsersPlaylist(playlistsByUserFirst.value!!, playlistsByUserSecond.value!!)
+        }
     }
 
     fun showAllSongsByPlaylists() {
         val playlists = compareUsersPlayList()
         viewModelScope.launch {
-            songsByPlaylists.value = getSimilarDataByTwoUsers.getSongsByPlaylists(playlists)
+            _songsByPlaylists.value = getSimilarDataByTwoUsersUseCase.getSongsByPlaylists(playlists)
         }
     }
-
-
 }

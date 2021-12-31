@@ -1,31 +1,33 @@
 package com.example.testlibrarysong.presentation.ui.playlists
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.testlibrarysong.business.domain.PlayList
-import com.example.testlibrarysong.business.domain.SongPlaylistsSingleton
-import com.example.testlibrarysong.business.domain.UserPlaylistsSingleton
+import com.example.testlibrarysong.business.domain.models.PlayList
+import com.example.testlibrarysong.business.domain.singletons.SongPlaylistsSingleton
+import com.example.testlibrarysong.business.domain.singletons.UserPlaylistsSingleton
 import com.example.testlibrarysong.business.usecases.GetPlaylistsUseCase
 import kotlinx.coroutines.launch
 
-class UserPlaylistsViewModel(
+class PlaylistsViewModel(
     private val getPlaylistsUseCase: GetPlaylistsUseCase
 ): ViewModel() {
-
-    val playlists = MutableLiveData<List<PlayList>>()
 
     private var userId = UserPlaylistsSingleton.user?.id
     private val songId = SongPlaylistsSingleton.song?.id
 
+    private val _playlists = MutableLiveData<List<PlayList>>()
+    val playlists: LiveData<List<PlayList>> = _playlists
+
     fun getPlaylists() {
         if (SongPlaylistsSingleton.song == null) {
             viewModelScope.launch {
-                playlists.value = getPlaylistsUseCase.getPlaylistsByUser(userId ?: 1)
+                _playlists.value = getPlaylistsUseCase.getPlaylistsByUser(userId ?: 1)
             }
         } else {
             viewModelScope.launch {
-                playlists.value = getPlaylistsUseCase.getPlaylistsBySong(songId ?: 1)
+                _playlists.value = getPlaylistsUseCase.getPlaylistsBySong(songId ?: 1)
             }
         }
     }

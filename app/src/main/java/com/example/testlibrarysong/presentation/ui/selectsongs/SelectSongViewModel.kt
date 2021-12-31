@@ -1,21 +1,20 @@
 package com.example.testlibrarysong.presentation.ui.selectsongs
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import com.example.testlibrarysong.business.domain.PlayList
-import com.example.testlibrarysong.business.domain.User
-import com.example.testlibrarysong.business.usecases.GetPlaylistsAndUsersBySong
+import androidx.lifecycle.*
+import com.example.testlibrarysong.business.domain.models.PlayList
+import com.example.testlibrarysong.business.domain.models.User
+import com.example.testlibrarysong.business.usecases.GetPlaylistsAndUsersBySongUseCase
 import kotlinx.coroutines.launch
 
 class SelectSongViewModel(
-    private val getPlaylistsAndUsersBySong: GetPlaylistsAndUsersBySong
+    private val getPlaylistsAndUsersBySongUseCase: GetPlaylistsAndUsersBySongUseCase
 ) : ViewModel() {
 
-    val songData = getPlaylistsAndUsersBySong.getAllSongs().asLiveData()
-    val playlistsBySong = MutableLiveData<List<PlayList>?>()
-    val usersBySong = MutableLiveData<List<User>?>()
+    val songData = getPlaylistsAndUsersBySongUseCase.getAllSongs().asLiveData()
+    private val _playlistsBySong = MutableLiveData<List<PlayList>?>()
+    val playlistsBySong: LiveData<List<PlayList>?> = _playlistsBySong
+    private val _usersBySong = MutableLiveData<List<User>?>()
+    val usersBySong: LiveData<List<User>?> = _usersBySong
     private val selectedSong = MutableLiveData<Int>()
 
     fun getPlaylistsBySong() {
@@ -29,18 +28,19 @@ class SelectSongViewModel(
             if (playlistsBySong.value == null) {
                 setPlaylistsBySong()
             }
-            usersBySong.value = getPlaylistsAndUsersBySong.getUsersBySong(playlistsBySong.value!!)
+            _usersBySong.value = getPlaylistsAndUsersBySongUseCase.getUsersBySong(playlistsBySong.value!!)
         }
     }
 
-    fun selectSongId(songId: Int) {
+    fun selectSongId(position: Int) {
+        val songId = songData.value?.get(position)?.id ?: 1
         selectedSong.value = songId
-        playlistsBySong.value = null
-        usersBySong.value = null
+        _playlistsBySong.value = null
+        _usersBySong.value = null
     }
 
     private suspend fun setPlaylistsBySong() {
-        playlistsBySong.value = getPlaylistsAndUsersBySong.getPlaylistsBySong(selectedSong.value ?: 1)
+        _playlistsBySong.value = getPlaylistsAndUsersBySongUseCase.getPlaylistsBySong(selectedSong.value ?: 1)
     }
 
 }

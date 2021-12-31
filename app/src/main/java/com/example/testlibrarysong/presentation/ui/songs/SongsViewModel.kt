@@ -1,23 +1,26 @@
 package com.example.testlibrarysong.presentation.ui.songs
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.testlibrarysong.business.domain.PlaylistSongsSingleton
-import com.example.testlibrarysong.business.domain.Song
+import com.example.testlibrarysong.business.domain.singletons.PlaylistSongsSingleton
+import com.example.testlibrarysong.business.domain.models.Song
 import com.example.testlibrarysong.business.usecases.GetSongsUseCase
 import kotlinx.coroutines.launch
 
-class PlaylistSongsViewModel(
+class SongsViewModel(
     private val getSongsUseCase: GetSongsUseCase
 ) : ViewModel() {
 
-    val songs = MutableLiveData<List<Song>>()
+    val playListId = PlaylistSongsSingleton.playList?.id
+
+    private val _songs = MutableLiveData<List<Song>>()
+    val songs: LiveData<List<Song>> = _songs
 
     fun getSongs() {
-        val playListId = PlaylistSongsSingleton.playList?.id
         viewModelScope.launch {
-            songs.value = getSongsUseCase.getSongs(playListId ?: 1)
+            _songs.value = getSongsUseCase.getSongs(playListId ?: 1)
         }
     }
 

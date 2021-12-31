@@ -9,21 +9,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testlibrarysong.R
-import com.example.testlibrarysong.business.domain.PlayList
+import com.example.testlibrarysong.business.domain.models.PlayList
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 
-class UserPlaylistAdapter(
+class PlaylistsAdapter(
     private val clickListener: PlaylistClickListener
-) : ListAdapter<PlayList, PlaylistViewHolder>(PlaylistComparator()) {
+) : ListAdapter<PlayList, PlaylistsViewHolder>(PlaylistsComparator()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
-        return PlaylistViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistsViewHolder {
+        return PlaylistsViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.user_list_fragment_item, parent, false)
         )
     }
 
-    override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PlaylistsViewHolder, position: Int) {
         holder.onBind(getItem(position))
         holder.itemView.setOnClickListener {
             openPlaylist(getItem(position))
@@ -41,7 +41,7 @@ class UserPlaylistAdapter(
     }
 }
 
-class PlaylistViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class PlaylistsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = UserListFragmentItemBinding.bind(itemView)
     fun onBind(playlist: PlayList) {
@@ -57,7 +57,7 @@ class PlaylistViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 }
 
-class PlaylistComparator : DiffUtil.ItemCallback<PlayList>() {
+class PlaylistsComparator : DiffUtil.ItemCallback<PlayList>() {
     override fun areItemsTheSame(oldItem: PlayList, newItem: PlayList): Boolean {
         return oldItem == newItem
     }

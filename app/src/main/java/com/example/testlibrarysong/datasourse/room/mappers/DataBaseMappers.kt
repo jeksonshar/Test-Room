@@ -1,8 +1,8 @@
 package com.example.testlibrarysong.datasourse.room.mappers
 
-import com.example.testlibrarysong.business.domain.PlayList
-import com.example.testlibrarysong.business.domain.Song
-import com.example.testlibrarysong.business.domain.User
+import com.example.testlibrarysong.business.domain.models.PlayList
+import com.example.testlibrarysong.business.domain.models.Song
+import com.example.testlibrarysong.business.domain.models.User
 import com.example.testlibrarysong.datasourse.room.entities.PlayListEntity
 import com.example.testlibrarysong.datasourse.room.entities.SongEntity
 import com.example.testlibrarysong.datasourse.room.entities.UserEntity

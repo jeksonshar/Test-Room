@@ -11,13 +11,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
-import com.example.testlibrarysong.business.domain.PlayList
-import com.example.testlibrarysong.business.domain.User
+import com.example.testlibrarysong.business.domain.models.PlayList
+import com.example.testlibrarysong.business.domain.models.User
 import com.example.testlibrarysong.business.usecases.GetUsersUseCase
 import com.example.testlibrarysong.databinding.UserListFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
-import com.example.testlibrarysong.presentation.ui.playlists.UserPlaylistsFragment
-import com.example.testlibrarysong.business.domain.PlaylistSongsSingleton
+import com.example.testlibrarysong.presentation.ui.playlists.PlaylistsFragment
+import com.example.testlibrarysong.business.domain.singletons.PlaylistSongsSingleton
 
 class UserListFragment : Fragment() {
 
@@ -35,9 +35,9 @@ class UserListFragment : Fragment() {
 
     private var clickListener: UserClickListener? = object : UserClickListener {
         override fun openUsersPlaylists(user: User) {
-            parentFragmentManager.beginTransaction()
+            parentFragmentManager.beginTransaction()                                                            // вынести в Util
                 .addToBackStack(null)
-                .replace(R.id.fragmentContainer, UserPlaylistsFragment.newInstance(user))
+                .replace(R.id.fragmentContainer, PlaylistsFragment.newInstance(user))
                 .commit()
         }
     }
@@ -77,8 +77,6 @@ class UserListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getUsers()
-
         viewModel.users.observe(viewLifecycleOwner, {
             adapter?.submitList(it)
         })
@@ -95,15 +93,11 @@ class UserListFragment : Fragment() {
     }
 
     companion object {
+
         fun newInstance(playList: PlayList? = null): UserListFragment {
-            return if (playList == null) {
-                UserListFragment()
-            } else {
-                PlaylistSongsSingleton.playList = playList
-                UserListFragment()
-            }
+            PlaylistSongsSingleton.playList = playList
+            return UserListFragment()
         }
     }
-
 
 }

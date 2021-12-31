@@ -2,7 +2,6 @@ package com.example.testlibrarysong.presentation.ui.selectusers
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testlibrarysong.TestApplication
-import com.example.testlibrarysong.business.usecases.GetSimilarDataByTwoUsers
+import com.example.testlibrarysong.business.usecases.GetSimilarDataByTwoUsersUseCase
 import com.example.testlibrarysong.databinding.SelectUsersFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 
@@ -23,7 +22,7 @@ class SelectUsersFragment : Fragment() {
     private var db: MusicDataBase? = null
 
     private val viewModel: SelectUsersViewModel by viewModels {
-        SelectUsersViewModelFactory(GetSimilarDataByTwoUsers(db))
+        SelectUsersViewModelFactory(GetSimilarDataByTwoUsersUseCase(db))
     }
 
     private val adapterPlaylists by lazy {
@@ -71,8 +70,9 @@ class SelectUsersFragment : Fragment() {
         binding.apply {
             spinnerFirst.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    viewModel.getFirstUserPlaylists(viewModel.usersData.value?.get(position)?.id ?: 1)
-                    Log.d("TAG", "onItemSelected first = ${viewModel.playlistsByUserFirst.value?.size} ")
+                    viewModel.getFirstUserPlaylists(position)
+                    adapterPlaylists.submitList(null)
+                    adapterSongs.submitList(null)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -81,7 +81,9 @@ class SelectUsersFragment : Fragment() {
 
             spinnerSecond.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    viewModel.getSecondUserPlaylists(viewModel.usersData.value?.get(position)?.id ?: 1)
+                    viewModel.getSecondUserPlaylists(position)
+                    adapterPlaylists.submitList(null)
+                    adapterSongs.submitList(null)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
