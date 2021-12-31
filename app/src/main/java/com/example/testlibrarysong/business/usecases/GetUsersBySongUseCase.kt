@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.map
 
-class GetPlaylistsAndUsersBySongUseCase(
+class GetUsersBySongUseCase(
     private val dataBase: MusicDataBase?
-) : GetPlaylistsUseCase(dataBase) {
+)/* : GetPlaylistsBySongUseCase(dataBase)*/ {
 
     suspend fun getUsersBySong(playlists: List<PlayList>): List<User> {
         if (dataBase == null) {
@@ -31,17 +31,17 @@ class GetPlaylistsAndUsersBySongUseCase(
         return users
     }
 
-    fun getAllSongs(): Flow<List<Song>> {
-        if (dataBase == null) {
-            return emptyFlow()
-        }
-
-        return dataBase.songDao().getAllSongs().map {
-            val songs = mutableListOf<Song>()
-            for (entity in it) {
-                songs.add(DataBaseMappers.mapToSong(entity))
-            }
-            songs
-        }
-    }
+//    fun getAllSongs(): Flow<List<Song>> {
+//        if (dataBase == null) {
+//            return emptyFlow()
+//        }
+//
+//        return dataBase.songDao().getAllSongs().map {
+//            val songs = mutableListOf<Song>()
+//            for (entity in it) {
+//                songs.add(DataBaseMappers.mapToSong(entity))
+//            }
+//            songs
+//        }
+//    }
 }

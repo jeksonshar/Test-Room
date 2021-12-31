@@ -3,14 +3,18 @@ package com.example.testlibrarysong.presentation.ui.selectsongs
 import androidx.lifecycle.*
 import com.example.testlibrarysong.business.domain.models.PlayList
 import com.example.testlibrarysong.business.domain.models.User
-import com.example.testlibrarysong.business.usecases.GetPlaylistsAndUsersBySongUseCase
+import com.example.testlibrarysong.business.usecases.GetAllSongsUseCase
+import com.example.testlibrarysong.business.usecases.GetPlaylistsBySongUseCase
+import com.example.testlibrarysong.business.usecases.GetUsersBySongUseCase
 import kotlinx.coroutines.launch
 
 class SelectSongViewModel(
-    private val getPlaylistsAndUsersBySongUseCase: GetPlaylistsAndUsersBySongUseCase
+    private val getUsersBySongUseCase: GetUsersBySongUseCase,
+    getAllSongsUseCase: GetAllSongsUseCase,
+    private val getPlaylistsBySongUseCase: GetPlaylistsBySongUseCase
 ) : ViewModel() {
 
-    val songData = getPlaylistsAndUsersBySongUseCase.getAllSongs().asLiveData()
+    val songData = getAllSongsUseCase.getAllSongs().asLiveData()
     private val _playlistsBySong = MutableLiveData<List<PlayList>?>()
     val playlistsBySong: LiveData<List<PlayList>?> = _playlistsBySong
     private val _usersBySong = MutableLiveData<List<User>?>()
@@ -28,7 +32,7 @@ class SelectSongViewModel(
             if (playlistsBySong.value == null) {
                 setPlaylistsBySong()
             }
-            _usersBySong.value = getPlaylistsAndUsersBySongUseCase.getUsersBySong(playlistsBySong.value!!)
+            _usersBySong.value = getUsersBySongUseCase.getUsersBySong(playlistsBySong.value!!)
         }
     }
 
@@ -40,7 +44,7 @@ class SelectSongViewModel(
     }
 
     private suspend fun setPlaylistsBySong() {
-        _playlistsBySong.value = getPlaylistsAndUsersBySongUseCase.getPlaylistsBySong(selectedSong.value ?: 1)
+        _playlistsBySong.value = getPlaylistsBySongUseCase.getPlaylistsBySong(selectedSong.value ?: 1)
     }
 
 }

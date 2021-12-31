@@ -4,11 +4,13 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import com.example.testlibrarysong.business.usecases.GetUsersUseCase
+import com.example.testlibrarysong.business.usecases.GetAllUsersUseCase
+import com.example.testlibrarysong.business.usecases.GetUsersByPlaylistUseCase
 
 @Suppress("UNCHECKED_CAST")
 class UserListViewModelFactory(
-    private val getUsersUseCase: GetUsersUseCase,
+    private val getUsersByPlaylistUseCase: GetUsersByPlaylistUseCase,
+    private val getAllUsersUseCase: GetAllUsersUseCase,
     owner: SavedStateRegistryOwner
 ) : AbstractSavedStateViewModelFactory(owner, null) {
 
@@ -17,6 +19,6 @@ class UserListViewModelFactory(
         modelClass: Class<T>,
         handle: SavedStateHandle
     ): T {
-        return UserListViewModel(getUsersUseCase, handle) as T
+        return UserListViewModel(getUsersByPlaylistUseCase, getAllUsersUseCase, handle) as T
     }
 }

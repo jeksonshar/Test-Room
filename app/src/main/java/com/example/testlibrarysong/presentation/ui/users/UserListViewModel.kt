@@ -4,17 +4,19 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.example.testlibrarysong.business.domain.singletons.PlaylistSongsSingleton
-import com.example.testlibrarysong.business.usecases.GetUsersUseCase
+import com.example.testlibrarysong.business.usecases.GetAllUsersUseCase
+import com.example.testlibrarysong.business.usecases.GetUsersByPlaylistUseCase
 
 class UserListViewModel(
-    getUsersUseCase: GetUsersUseCase,
+    getUsersByPlaylistUseCase: GetUsersByPlaylistUseCase,
+    getAllUsersUseCase: GetAllUsersUseCase,
     val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     val users = if (PlaylistSongsSingleton.playList == null) {
-        getUsersUseCase.getUsers().asLiveData()
+        getAllUsersUseCase.getAllUsers().asLiveData()
     } else {
-        getUsersUseCase.getUsers(PlaylistSongsSingleton.playList!!).asLiveData()
+        getUsersByPlaylistUseCase.getUsersByPlaylist(PlaylistSongsSingleton.playList!!).asLiveData()
     }
 
     override fun onCleared() {

@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testlibrarysong.business.domain.singletons.PlaylistSongsSingleton
 import com.example.testlibrarysong.business.domain.models.Song
-import com.example.testlibrarysong.business.usecases.GetSongsUseCase
+import com.example.testlibrarysong.business.usecases.GetSongsByOnePlaylistUseCase
 import kotlinx.coroutines.launch
 
 class SongsViewModel(
-    private val getSongsUseCase: GetSongsUseCase
+    private val getSongsByOnePlaylistUseCase: GetSongsByOnePlaylistUseCase
 ) : ViewModel() {
 
     val playListId = PlaylistSongsSingleton.playList?.id
@@ -20,7 +20,7 @@ class SongsViewModel(
 
     fun getSongs() {
         viewModelScope.launch {
-            _songs.value = getSongsUseCase.getSongs(playListId ?: 1)
+            _songs.value = getSongsByOnePlaylistUseCase.getSongsByOnePlaylist(playListId ?: 1)
         }
     }
 

@@ -13,22 +13,24 @@ import com.example.testlibrarysong.R
 import com.example.testlibrarysong.TestApplication
 import com.example.testlibrarysong.business.domain.models.PlayList
 import com.example.testlibrarysong.business.domain.models.User
-import com.example.testlibrarysong.business.usecases.GetUsersUseCase
+import com.example.testlibrarysong.business.usecases.GetUsersByPlaylistUseCase
 import com.example.testlibrarysong.databinding.UserListFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.presentation.ui.playlists.PlaylistsFragment
 import com.example.testlibrarysong.business.domain.singletons.PlaylistSongsSingleton
+import com.example.testlibrarysong.business.usecases.GetAllUsersUseCase
 
 class UserListFragment : Fragment() {
 
     private var _binding: UserListFragmentBinding? = null
     private val binding get() = _binding!!
 
-    var db: MusicDataBase? = null
+    private var db: MusicDataBase? = null
 
     private val viewModel: UserListViewModel by viewModels {
         UserListViewModelFactory(
-            GetUsersUseCase(db),
+            GetUsersByPlaylistUseCase(db),
+            GetAllUsersUseCase(db),
             this
         )
     }

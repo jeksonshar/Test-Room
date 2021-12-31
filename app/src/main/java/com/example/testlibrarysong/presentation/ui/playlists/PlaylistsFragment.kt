@@ -16,7 +16,8 @@ import com.example.testlibrarysong.business.domain.models.Song
 import com.example.testlibrarysong.business.domain.models.User
 import com.example.testlibrarysong.business.domain.singletons.SongPlaylistsSingleton
 import com.example.testlibrarysong.business.domain.singletons.UserPlaylistsSingleton
-import com.example.testlibrarysong.business.usecases.GetPlaylistsUseCase
+import com.example.testlibrarysong.business.usecases.GetPlaylistsBySongUseCase
+import com.example.testlibrarysong.business.usecases.GetPlaylistsByUserUseCase
 import com.example.testlibrarysong.databinding.UserListFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.presentation.ui.songs.SongsFragment
@@ -30,7 +31,10 @@ class PlaylistsFragment : Fragment() {
     private var db: MusicDataBase? = null
 
     private val viewModel: PlaylistsViewModel by viewModels {
-        PlaylistsViewModelFactory(GetPlaylistsUseCase(db))
+        PlaylistsViewModelFactory(
+            GetPlaylistsBySongUseCase(db),
+            GetPlaylistsByUserUseCase(db)
+        )
     }
 
     private var clickListener: PlaylistClickListener? = object : PlaylistClickListener {

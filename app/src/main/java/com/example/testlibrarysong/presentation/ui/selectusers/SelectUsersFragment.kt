@@ -10,7 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testlibrarysong.TestApplication
-import com.example.testlibrarysong.business.usecases.GetSimilarDataByTwoUsersUseCase
+import com.example.testlibrarysong.business.usecases.GetAllUsersUseCase
+import com.example.testlibrarysong.business.usecases.GetPlaylistsByUserUseCase
+import com.example.testlibrarysong.business.usecases.GetSimilarPlaylistsByTwoUsersUseCase
+import com.example.testlibrarysong.business.usecases.GetSimilarSongsByPlaylistsUseCase
 import com.example.testlibrarysong.databinding.SelectUsersFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 
@@ -22,7 +25,12 @@ class SelectUsersFragment : Fragment() {
     private var db: MusicDataBase? = null
 
     private val viewModel: SelectUsersViewModel by viewModels {
-        SelectUsersViewModelFactory(GetSimilarDataByTwoUsersUseCase(db))
+        SelectUsersViewModelFactory(
+            GetSimilarSongsByPlaylistsUseCase(db),
+            GetAllUsersUseCase(db),
+            GetPlaylistsByUserUseCase(db),
+            GetSimilarPlaylistsByTwoUsersUseCase()
+        )
     }
 
     private val adapterPlaylists by lazy {
