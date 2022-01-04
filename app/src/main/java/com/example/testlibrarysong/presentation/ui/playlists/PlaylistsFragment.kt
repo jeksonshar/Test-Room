@@ -18,6 +18,7 @@ import com.example.testlibrarysong.business.domain.singletons.SongPlaylistsSingl
 import com.example.testlibrarysong.business.domain.singletons.UserPlaylistsSingleton
 import com.example.testlibrarysong.business.usecases.GetPlaylistsBySongUseCase
 import com.example.testlibrarysong.business.usecases.GetPlaylistsByUserUseCase
+import com.example.testlibrarysong.presentation.utils.OpenFragmentUtil
 import com.example.testlibrarysong.databinding.UserListFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.presentation.ui.songs.SongsFragment
@@ -40,17 +41,11 @@ class PlaylistsFragment : Fragment() {
     private var clickListener: PlaylistClickListener? = object : PlaylistClickListener {
 
         override fun openSongsByPlaylist(playlist: PlayList) {
-            parentFragmentManager.beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.fragmentContainer, SongsFragment.newInstance(playlist))
-                .commit()
+            OpenFragmentUtil.openFragment(parentFragmentManager, SongsFragment.newInstance(playlist))
         }
 
         override fun openUsersByPlaylist(playlist: PlayList) {
-            parentFragmentManager.beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.fragmentContainer, UserListFragment.newInstance(playlist))
-                .commit()
+            OpenFragmentUtil.openFragment(parentFragmentManager, UserListFragment.newInstance(playlist))
         }
     }
 

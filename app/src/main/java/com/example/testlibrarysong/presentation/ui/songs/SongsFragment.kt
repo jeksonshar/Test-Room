@@ -15,6 +15,7 @@ import com.example.testlibrarysong.business.domain.models.PlayList
 import com.example.testlibrarysong.business.domain.singletons.PlaylistSongsSingleton
 import com.example.testlibrarysong.business.domain.models.Song
 import com.example.testlibrarysong.business.usecases.GetSongsByOnePlaylistUseCase
+import com.example.testlibrarysong.presentation.utils.OpenFragmentUtil
 import com.example.testlibrarysong.databinding.UserListFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.presentation.ui.playlists.PlaylistsFragment
@@ -31,10 +32,7 @@ class SongsFragment : Fragment() {
     }
     private var clickListener: SongClickListener? = object : SongClickListener {
         override fun openPlaylistsBySong(song: Song) {
-            parentFragmentManager.beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.fragmentContainer, PlaylistsFragment.newInstance(song))
-                .commit()
+            OpenFragmentUtil.openFragment(parentFragmentManager, PlaylistsFragment.newInstance(song))
         }
     }
 

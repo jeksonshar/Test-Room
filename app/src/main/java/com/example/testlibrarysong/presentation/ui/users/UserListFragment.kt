@@ -19,6 +19,7 @@ import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.presentation.ui.playlists.PlaylistsFragment
 import com.example.testlibrarysong.business.domain.singletons.PlaylistSongsSingleton
 import com.example.testlibrarysong.business.usecases.GetAllUsersUseCase
+import com.example.testlibrarysong.presentation.utils.OpenFragmentUtil
 
 class UserListFragment : Fragment() {
 
@@ -37,10 +38,7 @@ class UserListFragment : Fragment() {
 
     private var clickListener: UserClickListener? = object : UserClickListener {
         override fun openUsersPlaylists(user: User) {
-            parentFragmentManager.beginTransaction()                                                            // вынести в Util
-                .addToBackStack(null)
-                .replace(R.id.fragmentContainer, PlaylistsFragment.newInstance(user))
-                .commit()
+            OpenFragmentUtil.openFragment(parentFragmentManager, PlaylistsFragment.newInstance(user))
         }
     }
 
