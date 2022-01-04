@@ -17,6 +17,7 @@ import com.example.testlibrarysong.business.usecases.GetUsersBySongUseCase
 import com.example.testlibrarysong.databinding.SelectUsersFragmentBinding
 import com.example.testlibrarysong.datasourse.room.MusicDataBase
 import com.example.testlibrarysong.presentation.ui.selectusers.SelectUsersRecyclerPlaylistsAdapter
+import com.example.testlibrarysong.presentation.ui.users.UserListAdapter
 
 //class SelectSongsFragment : BaseSelectFragment<SelectUsersFragmentBinding>(SelectUsersFragmentBinding::inflate) {
 class SelectSongsFragment : Fragment() {
@@ -39,7 +40,7 @@ class SelectSongsFragment : Fragment() {
     }
 
     private val adapterUsers by lazy {
-        SelectSongsRecyclerUsersAdapter()
+        UserListAdapter()
     }
 
     override fun onAttach(context: Context) {

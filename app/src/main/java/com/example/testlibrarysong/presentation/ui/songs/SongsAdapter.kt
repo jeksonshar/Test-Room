@@ -1,9 +1,7 @@
 package com.example.testlibrarysong.presentation.ui.songs
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -17,24 +15,30 @@ class SongsAdapter(
 ) : ListAdapter<Song, SongViewHolder>(SongComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
-        return SongViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.user_list_fragment_item, parent, false)
-        )
+        return SongViewHolder.from(parent, clickListener)
     }
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         holder.bind(getItem(position))
-        holder.itemView.findViewById<AppCompatButton>(R.id.btnUsersByPL).setOnClickListener {
-            clickListener.openPlaylistsBySong(getItem(position))
-        }
     }
 }
 
-class SongViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class SongViewHolder(private val binding: UserListFragmentItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    private val binding = UserListFragmentItemBinding.bind(itemView)
+    private var listener: SongClickListener? = null
+    private var songHolder: Song? = null
+
+    init {
+        itemView.setOnClickListener {
+            openPlaylistsBySong()
+        }
+        binding.btnUsersByPL.setOnClickListener {
+            openPlaylistsBySong()
+        }
+    }
+
     fun bind(song: Song) {
+        songHolder = song
         binding.apply {
             tvSongName.text = song.name
             tvSongName.isVisible = true
@@ -43,6 +47,24 @@ class SongViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             tvEMailOrDescription.text = song.description
             btnUsersByPL.setText(R.string.libraries_by_song)
             btnUsersByPL.isVisible = true
+        }
+    }
+
+    private fun openPlaylistsBySong() {
+        listener.let {
+            songHolder?.let { song ->
+                it?.openPlaylistsBySong(song)
+            }
+        }
+    }
+
+    companion object {
+        fun from(parent: ViewGroup, listener: SongClickListener?): SongViewHolder {
+            val inflater = LayoutInflater.from(parent.context)
+            val binding = UserListFragmentItemBinding.inflate(inflater, parent, false)
+            val viewHolder = SongViewHolder(binding)
+            viewHolder.listener = listener
+            return viewHolder
         }
     }
 }
