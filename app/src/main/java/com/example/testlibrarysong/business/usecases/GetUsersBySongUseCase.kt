@@ -19,11 +19,11 @@ class GetUsersBySongUseCase(
             playListsId.add(pl.id)
         }
 
-        val usersToPlaylists = dataBase.songDao().getUsersByPlaylists(playListsId)
+        val usersToPlaylists = dataBase.usersToPlaylistsDao().getUsersByPlaylists(playListsId)
         val usersSet = arraySetOf<User>()
         val usersList = arrayListOf<User>()
         for (e in usersToPlaylists) {
-            val entity = dataBase.songDao().getUser(e.userId)
+            val entity = dataBase.userDao().getUser(e.userId)
             usersSet.add(DataBaseMappers.mapToUser(entity))
         }
         usersSet.map {

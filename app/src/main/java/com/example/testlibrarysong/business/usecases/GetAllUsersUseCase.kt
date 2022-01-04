@@ -15,7 +15,7 @@ class GetAllUsersUseCase(
             return emptyFlow()
         }
 
-        return dataBase.songDao().getAllUsers().map {
+        return dataBase.userDao().getAllUsers().map {
             val users = mutableListOf<User>()
             for (entity in it) {
                 users.add(DataBaseMappers.mapToUser(entity))

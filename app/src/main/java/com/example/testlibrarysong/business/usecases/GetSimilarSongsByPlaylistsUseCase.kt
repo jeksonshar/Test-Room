@@ -17,7 +17,7 @@ class GetSimilarSongsByPlaylistsUseCase(
         val songsSet = mutableSetOf<Song>()
         val songList = arrayListOf<Song>()
         for (playlist in playlists) {
-            val entities = dataBase.songDao().getSongsByPlaylist(playlist.id).songs
+            val entities = dataBase.playlistDao().getSongsByPlaylist(playlist.id).songs
 
             for (entity in entities) {
                 songsSet.add(DataBaseMappers.mapToSong(entity))

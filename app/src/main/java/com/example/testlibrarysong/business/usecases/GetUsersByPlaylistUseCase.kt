@@ -18,7 +18,7 @@ class GetUsersByPlaylistUseCase(
             return emptyFlow()
         }
 
-        return dataBase.songDao().getUsersByPlaylist(playList.id).map {
+        return dataBase.playlistDao().getUsersByPlaylist(playList.id).map {
             val entities = it.users
             val users = ArrayList<User>()
 

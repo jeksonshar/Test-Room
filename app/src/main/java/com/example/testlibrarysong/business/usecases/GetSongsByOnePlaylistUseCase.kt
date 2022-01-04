@@ -13,7 +13,7 @@ class GetSongsByOnePlaylistUseCase(
             return emptyList()
         }
 
-        val entities = dataBase.songDao().getSongsByPlaylist(playlistId).songs
+        val entities = dataBase.playlistDao().getSongsByPlaylist(playlistId).songs
         val songs = ArrayList<Song>()
         for (entity in entities) {
             songs.add(DataBaseMappers.mapToSong(entity))

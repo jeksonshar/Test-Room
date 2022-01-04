@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.testlibrarysong.datasourse.room.dao.MusicDao
+import com.example.testlibrarysong.datasourse.room.dao.*
 import com.example.testlibrarysong.datasourse.room.entities.*
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
@@ -22,7 +22,11 @@ import kotlinx.coroutines.launch
     ], version = 1
 )
 abstract class MusicDataBase : RoomDatabase() {
-    abstract fun songDao(): MusicDao
+    abstract fun userDao(): UserDao
+    abstract fun songDao(): SongDao
+    abstract fun playlistDao(): PlaylistDao
+    abstract fun usersToPlaylistsDao(): UsersToPlaylistsDao
+    abstract fun playlistsToSongsDao(): PlaylistsToSongsDao
 
     companion object {
         private const val DATABASE_NAME = "Songs.db"
@@ -57,13 +61,17 @@ abstract class MusicDataBase : RoomDatabase() {
                             }
                         val response = Gson().fromJson(jsonFile, ResponseData::class.java)
                         INSTANCE?.let {
-                            val dao = it.songDao()
+                            val userDao = it.userDao()
+                            val songDao = it.songDao()
+                            val playlistDao = it.playlistDao()
+                            val usersToPlaylistsDao = it.usersToPlaylistsDao()
+                            val playlistsToSongsDao = it.playlistsToSongsDao()
                             CoroutineScope(SupervisorJob()).launch {
-                                dao.insertAllUsers(response.users)
-                                dao.insertAllPlaylists(response.playlists)
-                                dao.insertAllSongs(response.songs)
-                                dao.insertUsersToPlaylists(response.usersToPlaylists)
-                                dao.insertPlaylistsToSongs(response.playlistsToSongs)
+                                userDao.insertAllUsers(response.users)
+                                playlistDao.insertAllPlaylists(response.playlists)
+                                songDao.insertAllSongs(response.songs)
+                                usersToPlaylistsDao.insertUsersToPlaylists(response.usersToPlaylists)
+                                playlistsToSongsDao.insertPlaylistsToSongs(response.playlistsToSongs)
                             }
                         }
                     }
