@@ -1,9 +1,12 @@
 package com.example.testlibrarysong.datasourse.room
 
+import android.content.ContentValues
 import android.content.Context
+import android.database.sqlite.SQLiteDatabase
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.testlibrarysong.datasourse.room.dao.*
 import com.example.testlibrarysong.datasourse.room.entities.*
@@ -11,6 +14,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 @Database(
     entities = [
@@ -19,7 +23,8 @@ import kotlinx.coroutines.launch
         PlayListEntity::class,
         UserPlaylistCrossReference::class,
         PlaylistSongCrossReference::class
-    ], version = 1
+    ],
+    version = 2
 )
 abstract class MusicDataBase : RoomDatabase() {
     abstract fun userDao(): UserDao
@@ -40,6 +45,35 @@ abstract class MusicDataBase : RoomDatabase() {
                 INSTANCE ?: buildDataBase(context).also {
                     INSTANCE = it
                 }
+            }
+        }
+
+        fun randomValue(): Float {
+            return Random.nextDouble(0.0, 10.0).toFloat()
+        }
+
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+
+                database.execSQL("ALTER TABLE play_lists ADD COLUMN playlistRating REAL NOT NULL DEFAULT 0.0")
+                val cursor = database.query("SELECT * FROM play_lists")
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        val values = ContentValues()
+                        values.put("playlistRating", randomValue())
+
+                        val columnIndex = cursor.getColumnIndex("playlistId")
+                        database.update(
+                            "play_lists",
+                            SQLiteDatabase.CONFLICT_REPLACE,
+                            values,
+                            "playlistId = ?",
+                            arrayOf(cursor.getInt(columnIndex))
+                        )
+                    } while (cursor.moveToNext())
+                }
+                cursor.close()
             }
         }
 
@@ -77,6 +111,7 @@ abstract class MusicDataBase : RoomDatabase() {
                     }
                 }
             )
+                .addMigrations(MIGRATION_1_2)
                 .build()
         }
     }

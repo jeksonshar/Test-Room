@@ -28,7 +28,8 @@ data class PlayListEntity(
     @PrimaryKey
     @SerializedName("id") val playlistId: Int = 0,
     @SerializedName("name") val playlistName: String = "",
-    @SerializedName("description") val playlistDescription: String = ""
+    @SerializedName("description") val playlistDescription: String = "",
+    val playlistRating: Float
 )
 
 

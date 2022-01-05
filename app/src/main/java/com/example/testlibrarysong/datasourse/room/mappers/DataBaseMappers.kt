@@ -22,7 +22,8 @@ object DataBaseMappers {
         return PlayList(
             id = entity.playlistId,
             name = entity.playlistName,
-            description = entity.playlistDescription
+            description = entity.playlistDescription,
+            rating = entity.playlistRating
         )
     }
 
@@ -36,17 +37,4 @@ object DataBaseMappers {
         )
     }
 
-    fun mapToPlaylistsEntities(playlists: List<PlayList>): List<PlayListEntity> {
-        val entities = arrayListOf<PlayListEntity>()
-        for (playlist in playlists) {
-            entities.add(
-                PlayListEntity(
-                    playlist.id,
-                    playlist.name,
-                    playlist.description
-                )
-            )
-        }
-        return entities
-    }
 }

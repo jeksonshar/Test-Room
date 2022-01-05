@@ -55,6 +55,8 @@ class PlaylistsViewHolder(private val binding: UserListFragmentItemBinding) : Re
             tvFirstName.visibility = View.GONE
             tvLastName.visibility = View.GONE
             tvEMailOrDescription.text = playlist.description
+            ratingForPlaylist.rating = playlist.rating
+            ratingForPlaylist.isVisible = true
             if (listener != null) {
                 btnDetails.isVisible = true
                 btnUsersByPL.isVisible = true
