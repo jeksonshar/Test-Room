@@ -2,9 +2,11 @@ package com.example.testlibrarysong.presentation.ui.users
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testlibrarysong.R
 import com.example.testlibrarysong.business.domain.models.User
 import com.example.testlibrarysong.databinding.UserListFragmentItemBinding
 
@@ -41,6 +43,12 @@ class UserListViewHolder(private val binding: UserListFragmentItemBinding) : Rec
         binding.apply {
             tvFirstName.text = user.firstName
             tvLastName.text = user.lastName
+            if (user.maleType == 0) {
+                tvMaleType.setText(R.string.man)
+            } else {
+                tvMaleType.setText(R.string.woman)
+            }
+            tvMaleType.isVisible = true
             tvEMailOrDescription.text = user.email
         }
     }

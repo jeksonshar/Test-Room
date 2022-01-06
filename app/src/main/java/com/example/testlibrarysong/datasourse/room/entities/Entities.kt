@@ -10,7 +10,8 @@ data class UserEntity(
     @SerializedName("id") val userId: Int = 0,
     @SerializedName("firstname") val userFirstName: String = "no",
     @SerializedName("lastname") val userLastName: String = "no",
-    @SerializedName("email") val userEmail: String = ""
+    @SerializedName("email") val userEmail: String = "",
+    val maleType: Int
 )
 
 @Entity(tableName = "songs")

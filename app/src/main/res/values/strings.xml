@@ -16,6 +16,9 @@
     <string name="similar_playlists">Similar Playlists</string>
     <string name="similar_songs">Similar Songs</string>
     <string name="similar_users">Similar Users</string>
+    <string name="male_type">Male Type</string>
+    <string name="man">Man</string>
+    <string name="woman">Woman</string>
     <string-array name="fragments">
         <item>Tasks 1..5</item>
         <item>Task 6</item>

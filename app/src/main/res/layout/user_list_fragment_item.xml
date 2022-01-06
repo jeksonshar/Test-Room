@@ -59,24 +59,39 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:text="@string/email_description"
-            app:layout_constraintBottom_toTopOf="@+id/ratingForPlaylist"
+            app:layout_constraintBottom_toTopOf="@+id/linearRatingMale"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvFirstName" />
 
-        <androidx.appcompat.widget.AppCompatRatingBar
-            android:id="@+id/ratingForPlaylist"
-            style="@style/Widget.AppCompat.RatingBar.Small"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearRatingMale"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:numStars="10"
-            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/btnUsersByPL"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.016"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvEMailOrDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/tvEMailOrDescription">
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/ratingForPlaylist"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:numStars="10"
+                android:visibility="gone"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvMaleType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:text="@string/male_type"
+                android:textAlignment="textEnd"
+                android:visibility="gone"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDetails"
@@ -99,7 +114,7 @@
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@id/btnDetails"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingForPlaylist"
+            app:layout_constraintTop_toBottomOf="@+id/linearRatingMale"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
 

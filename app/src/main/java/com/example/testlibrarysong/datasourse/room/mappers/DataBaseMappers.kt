@@ -14,7 +14,8 @@ object DataBaseMappers {
             id = entity.userId,
             firstName = entity.userFirstName,
             lastName = entity.userLastName,
-            email = entity.userEmail
+            email = entity.userEmail,
+            maleType = entity.maleType
         )
     }
 
