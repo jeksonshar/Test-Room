@@ -36,6 +36,7 @@ class SelectUsersRecyclerPlaylistViewHolder(view: View) : RecyclerView.ViewHolde
             tvFirstName.visibility = View.GONE
             tvLastName.visibility = View.GONE
             tvEMailOrDescription.text = playlist.description
+            tvEMailOrDescription.isVisible = true
         }
     }
 

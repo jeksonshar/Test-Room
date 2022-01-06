@@ -50,6 +50,7 @@ class UserListViewHolder(private val binding: UserListFragmentItemBinding) : Rec
             }
             tvMaleType.isVisible = true
             tvEMailOrDescription.text = user.email
+            tvEMailOrDescription.isVisible = true
         }
     }
 

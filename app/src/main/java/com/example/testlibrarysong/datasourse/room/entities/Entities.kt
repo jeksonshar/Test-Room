@@ -21,7 +21,6 @@ data class SongEntity(
     @SerializedName("name") val songName: String = "",
     @SerializedName("singer_first_name") val singerFirstName: String = "",
     @SerializedName("singer_last_name") val singerLastName: String = "",
-    @SerializedName("description") val songDescription: String = ""
 )
 
 @Entity(tableName = "play_lists")

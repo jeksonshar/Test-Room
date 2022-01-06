@@ -6,7 +6,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlin.random.Random
 
-object MigrationFrom1TO2 : Migration(1, 2) {
+object MigrationFrom1To2 : Migration(1, 2) {
 
     override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL("ALTER TABLE play_lists ADD COLUMN playlistRating REAL NOT NULL DEFAULT 0.0")

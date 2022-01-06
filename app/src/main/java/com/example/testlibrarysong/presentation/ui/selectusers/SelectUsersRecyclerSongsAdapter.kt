@@ -35,7 +35,6 @@ class SelectUsersRecyclerSongsHolder(view: View) : RecyclerView.ViewHolder(view)
             tvSongName.isVisible = true
             tvFirstName.text = song.singerName
             tvLastName.text = song.singerLastName
-            tvEMailOrDescription.text = song.description
         }
     }
 }

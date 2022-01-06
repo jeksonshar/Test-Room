@@ -1,13 +1,12 @@
 package com.example.testlibrarysong.datasourse.room
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import androidx.room.migration.AutoMigrationSpec
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.testlibrarysong.datasourse.room.dao.*
 import com.example.testlibrarysong.datasourse.room.entities.*
-import com.example.testlibrarysong.datasourse.room.migrations.MigrationFrom1TO2
+import com.example.testlibrarysong.datasourse.room.migrations.MigrationFrom1To2
 import com.example.testlibrarysong.datasourse.room.migrations.MigrationFrom2To3
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
@@ -15,6 +14,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 @Database(
+    version = 4,
     entities = [
         UserEntity::class,
         SongEntity::class,
@@ -22,7 +22,14 @@ import kotlinx.coroutines.launch
         UserPlaylistCrossReference::class,
         PlaylistSongCrossReference::class
     ],
-    version = 3
+    autoMigrations = [
+        AutoMigration(
+            from = 3,
+            to = 4,
+            spec = MusicDataBase.AutoMigrationFrom3To4::class
+        )
+    ],
+    exportSchema = true
 )
 abstract class MusicDataBase : RoomDatabase() {
     abstract fun userDao(): UserDao
@@ -30,6 +37,9 @@ abstract class MusicDataBase : RoomDatabase() {
     abstract fun playlistDao(): PlaylistDao
     abstract fun usersToPlaylistsDao(): UsersToPlaylistsDao
     abstract fun playlistsToSongsDao(): PlaylistsToSongsDao
+
+    @DeleteColumn(tableName = "songs", columnName = "songDescription")
+    class AutoMigrationFrom3To4 : AutoMigrationSpec
 
     companion object {
         private const val DATABASE_NAME = "Songs.db"
@@ -80,7 +90,7 @@ abstract class MusicDataBase : RoomDatabase() {
                     }
                 }
             )
-                .addMigrations(MigrationFrom1TO2)
+                .addMigrations(MigrationFrom1To2)
                 .addMigrations(MigrationFrom2To3)
                 .build()
         }

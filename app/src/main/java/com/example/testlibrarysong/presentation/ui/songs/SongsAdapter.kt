@@ -44,7 +44,6 @@ class SongViewHolder(private val binding: UserListFragmentItemBinding) : Recycle
             tvSongName.isVisible = true
             tvFirstName.text = song.singerName
             tvLastName.text = song.singerLastName
-            tvEMailOrDescription.text = song.description
             btnUsersByPL.setText(R.string.libraries_by_song)
             btnUsersByPL.isVisible = true
         }

@@ -34,7 +34,6 @@ object DataBaseMappers {
             name = entity.songName,
             singerName = entity.singerFirstName,
             singerLastName = entity.singerLastName,
-            description = entity.songDescription
         )
     }
 
